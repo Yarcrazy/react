@@ -7,7 +7,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-.table {
+#table {
   display: table;
   border-collapse: collapse;
 }
@@ -18,8 +18,11 @@ code {
   border: black solid 1px;
   box-sizing: border-box;
 }
-.c-2 {
+.c-1 {
   background-color: red;
+}
+.col-fixed {
+  position: fixed;
 }
 .row {
   display: table-row;
@@ -28,5 +31,15 @@ code {
 }
 .row::-webkit-scrollbar {
   display: none;
+}
+.row-fixed {
+  position: fixed;
+}
+#row-header {
+  background-color: #1616ff;
+}
+.table-body {
+  position: absolute;
+  top: 200px;
 }
 /*# sourceMappingURL=index.css.map */

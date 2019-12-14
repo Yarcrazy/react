@@ -1,3 +1,5 @@
+@import "var";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -12,35 +14,45 @@ code {
   monospace;
 }
 
-.table {
+#table {
   display: table;
   border-collapse: collapse;
 }
 
 .cell {
   display: table-cell;
-  height: 200px;
-  min-width: 200px;
+  height: @cell-height;
+  min-width: @cell-width;
   border: black solid 1px;
   box-sizing: border-box;
 }
 
-.c-2 {
+.c-1 {
   background-color: red;
+}
+
+.col-fixed {
+  position: fixed;
 }
 
 .row {
   display: table-row;
   overflow-x: scroll;
   min-width: 100%;
-
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
-.fixed {
+.row-fixed {
+  position: fixed;
 }
 
-.row-header {
+#row-header {
+  background-color: #1616ff;
+}
+
+.table-body {
+  position: absolute;
+  top: @cell-height;
 }
