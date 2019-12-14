@@ -15,7 +15,7 @@ window.addEventListener("scroll", function () {
 
   for (let i = 0; i < cellsFixed.length; i++) {
     let cell = cellsFixed[i];
-    cell.style.cssText = "top: " + (i * 200 - this.pageYOffset) + "px;";
+    cell.style.cssText = "top: " + (i * cell.offsetHeight - this.pageYOffset) + "px;";
     cell.classList.add("col-fixed");
   }
 });
