@@ -7,39 +7,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-#table {
-  display: table;
-  border-collapse: collapse;
+.table {
+  margin: 100px auto;
+  max-width: 100vh;
+  max-height: 100vh;
+  overflow: scroll;
 }
-.cell {
+.table::-webkit-scrollbar {
+  display: none;
+}
+.td,
+.th {
   display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 26px;
   height: 200px;
   min-width: 200px;
   border: black solid 1px;
   box-sizing: border-box;
 }
-.c-1 {
-  background-color: red;
-}
 .col-fixed {
-  position: fixed;
-}
-.row {
-  display: table-row;
-  overflow-x: scroll;
-  min-width: 100%;
-}
-.row::-webkit-scrollbar {
-  display: none;
+  background-color: red;
+  position: relative;
 }
 .row-fixed {
-  position: fixed;
-}
-#row-header {
+  position: relative;
   background-color: #1616ff;
+  width: fit-content;
+  z-index: 2;
 }
-.table-body {
-  position: absolute;
-  top: 200px;
+.tbody {
+  position: relative;
 }
 /*# sourceMappingURL=index.css.map */

@@ -14,45 +14,39 @@ code {
   monospace;
 }
 
-#table {
-  display: table;
-  border-collapse: collapse;
+.table {
+  margin: 100px auto;
+  max-width: 100vh;
+  max-height: 100vh;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.cell {
+.td, .th {
   display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 26px;
   height: @cell-height;
   min-width: @cell-width;
   border: black solid 1px;
   box-sizing: border-box;
 }
 
-.c-1 {
-  background-color: red;
-}
-
 .col-fixed {
-  position: fixed;
-}
-
-.row {
-  display: table-row;
-  overflow-x: scroll;
-  min-width: 100%;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  background-color: red;
+  position: relative;
 }
 
 .row-fixed {
-  position: fixed;
-}
-
-#row-header {
+  position: relative;
   background-color: #1616ff;
+  width: fit-content;
+  z-index: 2;
 }
 
-.table-body {
-  position: absolute;
-  top: @cell-height;
+.tbody {
+  position: relative;
 }
