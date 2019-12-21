@@ -2,6 +2,13 @@ import * as React from "react/cjs/react.development";
 
 class Table extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFixed: this.props.isFixed,
+    }
+  }
+
   render() {
     const rows = [];
     let className = '';
@@ -28,7 +35,8 @@ class Table extends React.Component {
       );
     }
 
-    className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
+    className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
+    console.log(this.props.children);
     return (
       <div className={className}>
         {rows}
