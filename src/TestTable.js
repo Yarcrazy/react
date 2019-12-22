@@ -6,7 +6,7 @@ export default function TestTable() {
     <Table className={'table'}>
       <thead>
       <tr className={'row-fixed'}>
-        <th>ш1</th>
+        <th><div>ш1</div></th>
         <th className={'col-fixed'}>ш2</th>
         <th>ш3</th>
         <th>ш4</th>

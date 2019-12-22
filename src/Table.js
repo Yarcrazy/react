@@ -13,7 +13,7 @@ class Table extends React.Component {
     const rows = [];
     let className = '';
 
-    if (typeof this.props.children === "string") {
+    if ((this.props.className === 'td') || (this.props.className === 'th')) {
       rows.push(this.props.children);
       className += 'c-' + (this.props.num + 1) + ' ';
     } else if (Array.isArray(this.props.children)) {
@@ -36,7 +36,7 @@ class Table extends React.Component {
     }
 
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
-    console.log(this.props.children);
+    console.log(this.props);
     return (
       <div className={className}>
         {rows}
