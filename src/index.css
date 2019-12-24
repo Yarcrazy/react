@@ -13,9 +13,6 @@ code {
   max-height: 100vh;
   overflow: scroll;
 }
-.table::-webkit-scrollbar {
-  display: none;
-}
 .td,
 .th {
   display: table-cell;
