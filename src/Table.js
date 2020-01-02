@@ -6,7 +6,14 @@ class Table extends React.Component {
     super(props);
     this.state = {
       isFixed: props.isFixed,
+      //tableParent: null,
     }
+  }
+
+  componentDidMount() {
+    // if ((this.props.className === 'tr')&&(this.state.isFixed === 'row-fixed')) {
+    //   this.setState({tableParent: document.querySelector('.table')});
+    // }
   }
 
   render() {
@@ -39,17 +46,18 @@ class Table extends React.Component {
       );
     }
 
-    // добавляем обработчики событий скролла таблицы
-    // if (this.state.isFixed === 'row-fixed') {
-    //
-    // }
-
-
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
     //TODO можно использовать classNames
     console.log(this.props);
+    let scrollTop = 0;
+    if ((this.props.className === 'tr')&&(this.state.isFixed === 'row-fixed')) {
+      //console.log(this.state.tableParent);
+      // scrollTop = {
+      //   top: document.querySelector('.table').scrollTop,
+      // };
+    }
     return (
-      <div className={className}>
+      <div className={className} style={{scrollTop}}>
         {rows}
       </div>
     );
