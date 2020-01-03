@@ -2,38 +2,50 @@ import React from 'react';
 
 class Table extends React.Component {
 
+  tableRef;
+
   constructor(props) {
     super(props);
     this.state = {
       isFixed: props.isFixed,
-      //tableParent: null,
+      scrollTop: 0,
     }
   }
 
-  componentDidMount() {
-    // if ((this.props.className === 'tr')&&(this.state.isFixed === 'row-fixed')) {
-    //   this.setState({tableParent: document.querySelector('.table')});
-    // }
+  componentDidUpdate() {
+    this.setState({scrollTop: this.props.scrollTop})
   }
 
+  handleScroll = () => {
+    if (this.props.className === 'table') {
+      this.setState({scrollTop: this.tableRef.current.scrollTop});
+    }
+  };
+
   render() {
+    this.tableRef = (this.props.className === 'table') ? React.createRef() : '';
+
+    console.log(this);
     const rows = [];
     const children = this.props.children;
     let className = '';
+    let scrollTop = 0;
 
+    if ((this.state.isFixed === 'row-fixed') && (this.props.className === 'tr')) {
+      scrollTop = this.state.scrollTop;
+    }
     if ((this.props.className === 'td') || (this.props.className === 'th')) {
       rows.push(children);
       className += 'c-' + (this.props.num + 1) + ' ';
     } else if (Array.isArray(children)) {
       rows.push(
         children.map((el, i) => {
-          // if (el.props.className === 'col-fixed') {
-          //
-          // }
           return <Table className={el.type}
                         isFixed={el.props.className}
                         key={i}
-                        num={i}>{el.props.children}</Table>
+                        num={i}
+                        scrollTop={this.state.scrollTop}>{el.props.children}
+          </Table>
         })
       );
     } else {
@@ -41,23 +53,18 @@ class Table extends React.Component {
         <React.Fragment key={'0'}>
           <Table className={children.type}
                  isFixed={children.props.className}
-                 key={children.type.length}>{children.props.children}</Table>
+                 key={children.type.length}
+                 scrollTop={this.state.scrollTop}>
+            {children.props.children}
+          </Table>
         </React.Fragment>
       );
     }
 
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
     //TODO можно использовать classNames
-    console.log(this.props);
-    let scrollTop = 0;
-    if ((this.props.className === 'tr')&&(this.state.isFixed === 'row-fixed')) {
-      //console.log(this.state.tableParent);
-      // scrollTop = {
-      //   top: document.querySelector('.table').scrollTop,
-      // };
-    }
     return (
-      <div className={className} style={{scrollTop}}>
+      <div className={className} style={{top: scrollTop}} ref={this.tableRef} onScroll={this.handleScroll}>
         {rows}
       </div>
     );
