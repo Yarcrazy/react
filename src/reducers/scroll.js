@@ -1,6 +1,6 @@
 const initialState = {
-  top: 0,
-  left: 0,
+  scrollTop: 0,
+  scrollLeft: 0,
 };
 
 export function scrollReducer(state = initialState) {
