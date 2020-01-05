@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 class Table extends React.Component {
 
@@ -56,4 +57,11 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+const mapStateToProps = store => {
+  console.log(store);
+  return {
+    scroll: store.scroll,
+  }
+};
+
+export default connect(mapStateToProps)(Table)
