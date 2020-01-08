@@ -1,4 +1,5 @@
 import React from 'react';
+import Cell from "./Cell";
 
 class Table extends React.Component {
 
@@ -14,19 +15,22 @@ class Table extends React.Component {
     const children = this.props.children;
     let className = '';
 
-    if ((this.props.className === 'td') || (this.props.className === 'th')) {
-      rows.push(children);
-      className += 'c-' + (this.props.num + 1) + ' ';
-    } else if (Array.isArray(children)) {
+    if (Array.isArray(children)) {
       rows.push(
         children.map((el, i) => {
-          // if (el.props.className === 'col-fixed') {
-          //
-          // }
-          return <Table className={el.type}
-                        isFixed={el.props.className}
-                        key={i}
-                        num={i}>{el.props.children}</Table>
+          if ((el.type === 'td') || (el.type === 'th')) {
+            return (<Cell className={el.type}
+                         isFixed={el.props.className}
+                         key={i}
+                         num={i}>
+              {el.props.children}
+            </Cell>)
+          } else {
+            return (<Table className={el.type}
+                          isFixed={el.props.className}
+                          key={i}
+                          num={i}>{el.props.children}</Table>)
+          }
         })
       );
     } else {
@@ -38,12 +42,6 @@ class Table extends React.Component {
         </React.Fragment>
       );
     }
-
-    // добавляем обработчики событий скролла таблицы
-    // if (this.state.isFixed === 'row-fixed') {
-    //
-    // }
-
 
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
     //TODO можно использовать classNames
