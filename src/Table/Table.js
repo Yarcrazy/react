@@ -1,5 +1,5 @@
 import React from 'react';
-import Cell from "./Cell";
+import Row from "./Row";
 
 class Table extends React.Component {
 
@@ -18,29 +18,36 @@ class Table extends React.Component {
     if (Array.isArray(children)) {
       rows.push(
         children.map((el, i) => {
-          if ((el.type === 'td') || (el.type === 'th')) {
-            return (<Cell className={el.type}
+          if (el.type === 'tr') {
+            return (<Row className={el.type}
                          isFixed={el.props.className}
-                         key={i}
-                         num={i}>
+                         key={i}>
               {el.props.children}
-            </Cell>)
+            </Row>)
           } else {
             return (<Table className={el.type}
-                          isFixed={el.props.className}
-                          key={i}
-                          num={i}>{el.props.children}</Table>)
+                           isFixed={el.props.className}
+                           key={i}>
+              {el.props.children}
+            </Table>)
           }
         })
       );
     } else {
-      rows.push(
-        <React.Fragment key={'0'}>
+      if (children.type === 'tr') {
+        rows.push(
+          <Row className={children.type}
+               isFixed={children.props.className}
+               key={children.type.length}>{children.props.children}
+          </Row>)
+      } else {
+        rows.push(
           <Table className={children.type}
                  isFixed={children.props.className}
-                 key={children.type.length}>{children.props.children}</Table>
-        </React.Fragment>
-      );
+                 key={children.type.length}>{children.props.children}
+          </Table>
+        )
+      }
     }
 
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
