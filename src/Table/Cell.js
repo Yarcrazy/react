@@ -10,8 +10,11 @@ class Cell extends React.Component {
   }
 
   render() {
-    let rows = this.props.children;
-    return {rows}
+    let rows = [this.props.children];
+    let className = this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
+    return <div className={className}>
+      {rows}
+    </div>
   }
 }
 
