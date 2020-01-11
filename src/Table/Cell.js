@@ -10,8 +10,13 @@ class Cell extends React.Component {
   }
 
   render() {
+    let scrollLeft = 0;
     let className = this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
-    return <div className={className}>
+
+    // if (this.state.isFixed === 'col-fixed') {
+    //   scrollLeft = this.props.scrollLeft;
+    // }
+    return <div className={className} style={{left: scrollLeft}}>
       {this.props.children}
     </div>
   }
