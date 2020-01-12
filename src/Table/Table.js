@@ -3,12 +3,20 @@ import Row from "./Row";
 
 class Table extends React.Component {
 
+  tableRef;
+
   constructor(props) {
     super(props);
     this.state = {
       isFixed: props.isFixed,
       scrollLeft: 0,
       scrollTop: 0,
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.className === 'table') {
+      this.setState({tableRect: this.tableRef.current.getBoundingClientRect()});
     }
   }
 
@@ -25,15 +33,16 @@ class Table extends React.Component {
     const rows = [];
     const children = this.props.children;
     let className = '';
-
-    const tableRef = (this.props.className === 'table') ? React.createRef() : '';
+    this.tableRef = (this.props.className === 'table') ? React.createRef() : '';
 
     let scrollLeft = this.props.scrollLeft;
     let scrollTop = this.props.scrollTop;
+    let tableRect = this.props.tableRect;
 
     if (this.props.className === 'table') {
       scrollTop = this.state.scrollTop;
       scrollLeft = this.state.scrollLeft;
+      tableRect = this.state.tableRect;
     }
 
     if (Array.isArray(children)) {
@@ -44,6 +53,7 @@ class Table extends React.Component {
                          isFixed={el.props.className}
                          key={i}
                          scrollTop={scrollTop}
+                         tableRect={tableRect}
                          scrollLeft={scrollLeft}>
               {el.props.children}
             </Row>)
@@ -52,6 +62,7 @@ class Table extends React.Component {
                            isFixed={el.props.className}
                            key={i}
                            scrollTop={scrollTop}
+                           tableRect={tableRect}
                            scrollLeft={scrollLeft}>
               {el.props.children}
             </Table>)
@@ -65,6 +76,7 @@ class Table extends React.Component {
                isFixed={children.props.className}
                key={children.type.length}
                scrollTop={scrollTop}
+               tableRect={tableRect}
                scrollLeft={scrollLeft}>{children.props.children}
           </Row>)
       } else {
@@ -73,6 +85,7 @@ class Table extends React.Component {
                  isFixed={children.props.className}
                  key={children.type.length}
                  scrollTop={scrollTop}
+                 tableRect={tableRect}
                  scrollLeft={scrollLeft}>{children.props.children}
           </Table>
         )
@@ -82,7 +95,7 @@ class Table extends React.Component {
     className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
     //TODO можно использовать classNames
     return (
-      <div className={className} ref={tableRef} onScroll={this.handleScroll}>
+      <div className={className} ref={this.tableRef} onScroll={this.handleScroll}>
         {rows}
       </div>
     );

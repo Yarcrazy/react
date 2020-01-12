@@ -17,6 +17,7 @@ class Row extends React.Component {
 
     let scrollTop = 0;
     let scrollLeft = 0;
+    let tableRect = {};
 
     if (this.state.isFixed === 'row-fixed') {
       scrollTop = this.props.scrollTop;
@@ -28,10 +29,12 @@ class Row extends React.Component {
       children.map((el, i) => {
           if (el.props.className === 'col-fixed') {
             scrollLeft = this.props.scrollLeft;
+            tableRect = this.props.tableRect;
           }
           return <Cell className={el.type}
                        isFixed={el.props.className}
                        key={i}
+                       tableRect={tableRect}
                        scrollLeft={scrollLeft}>
             {el.props.children}
           </Cell>
