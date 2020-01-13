@@ -3,23 +3,16 @@ import Cell from "./Cell";
 
 class Row extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFixed: props.isFixed,
-    }
-  }
-
   render() {
     let rows = [];
-    let className = this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
+    let className = this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     const children = this.props.children;
 
     let scrollTop = 0;
     let scrollLeft = 0;
     let tableRect = {};
 
-    if (this.state.isFixed === 'row-fixed') {
+    if (this.props.isFixed === 'row-fixed') {
       scrollTop = this.props.scrollTop;
       //scrollTop = this.props.tableRef.current.scrollTop;
       //console.log(this.props.tableRef);
