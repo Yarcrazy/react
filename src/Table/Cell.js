@@ -17,12 +17,13 @@ class Cell extends React.Component {
       // if (cellLeftBorder >= this.state.defaultCellLeftBorder) {
       //   this.cellLeft = 0;
       // }
-      if (this.fixFlag === true) {
+      if (this.fixFlag) {
         this.cellLeft = tableLeftBorder - this.state.defaultCellLeftBorder + this.props.scrollLeft;
-        console.log(this.cellLeft);
+        //console.log(this.cellLeft);
       }
-      if ((prevProps.scrollLeft > this.props.scrollLeft) && (this.fixFlag === true) && (tableLeftBorder < this.state.defaultCellLeftBorder)) {
+      if (cellLeftBorder < this.state.defaultCellLeftBorder - this.props.scrollLeft) {
         this.cellLeft = 0;
+        this.fixFlag = false;
       }
     }
   }
