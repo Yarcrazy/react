@@ -19,7 +19,7 @@ code {
   justify-content: center;
   align-items: center;
   font-size: 26px;
-  height: 200px;
+  min-height: 200px;
   min-width: 200px;
   border: black solid 1px;
   box-sizing: border-box;

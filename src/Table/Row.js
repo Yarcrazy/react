@@ -27,6 +27,7 @@ class Row extends React.Component {
           return <Cell className={el.type}
                        isFixed={el.props.className}
                        key={i}
+                       num={i+1}
                        tableRect={tableRect}
                        scrollLeft={scrollLeft}>
             {el.props.children}
