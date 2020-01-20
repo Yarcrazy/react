@@ -6,7 +6,7 @@ class Cell extends React.Component {
   cellLeft = 0;
   fixFlag = false;
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (this.props.isFixed === 'col-fixed') {
       let tableLeftBorder = this.props.tableRect.x;
       let cellLeftBorder = this.ref.current.getBoundingClientRect().x;
@@ -14,7 +14,7 @@ class Cell extends React.Component {
       // если фиксированная колонка заехала за край таблицы и флаг неактивен
       if ((cellLeftBorder <= tableLeftBorder) && !this.fixFlag) {
         //this.cellLeft = this.props.scrollLeft - this.state.defaultCellLeftBorder + tableLeftBorder;
-        this.fixFlag = prevProps.scrollLeft !== this.props.scrollLeft;
+        this.fixFlag = true;
       }
 
       if (this.fixFlag) {
@@ -42,6 +42,7 @@ class Cell extends React.Component {
 
     if (this.fixFlag === true) {
       //cellLeft = this.props.scrollLeft;
+      console.log('fgdg');
     }
 
     return <div className={className} style={{left: this.cellLeft}} ref={this.ref}>

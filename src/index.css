@@ -15,9 +15,9 @@ code {
 }
 .td,
 .th {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 26px;
   height: 200px;
   min-width: 200px;
@@ -28,13 +28,16 @@ code {
   background-color: red;
   position: relative;
 }
+.fixed {
+  position: absolute;
+}
 .row-fixed {
-  position: relative;
   background-color: #1616ff;
   width: fit-content;
   z-index: 2;
 }
-.tbody {
+.tr {
+  display: flex;
   position: relative;
 }
 /*# sourceMappingURL=index.css.map */
