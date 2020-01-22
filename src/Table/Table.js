@@ -16,7 +16,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     if (this.props.className === 'table') {
-      this.setState({tableRect: this.tableRef.current.getBoundingClientRect()});
+      this.setState({tableLeftBorder: this.tableRef.current.getBoundingClientRect().x});
     }
   }
 
@@ -37,12 +37,12 @@ class Table extends React.Component {
 
     let scrollLeft = this.props.scrollLeft;
     let scrollTop = this.props.scrollTop;
-    let tableRect = this.props.tableRect;
+    let tableLeftBorder = this.props.tableLeftBorder;
 
     if (this.props.className === 'table') {
       scrollTop = this.state.scrollTop;
       scrollLeft = this.state.scrollLeft;
-      tableRect = this.state.tableRect;
+      tableLeftBorder = this.state.tableLeftBorder;
     }
 
     if (Array.isArray(children)) {
@@ -53,7 +53,7 @@ class Table extends React.Component {
                          isFixed={el.props.className}
                          key={i}
                          scrollTop={scrollTop}
-                         tableRect={tableRect}
+                         tableLeftBorder={tableLeftBorder}
                          scrollLeft={scrollLeft}>
               {el.props.children}
             </Row>)
@@ -62,7 +62,7 @@ class Table extends React.Component {
                            isFixed={el.props.className}
                            key={i}
                            scrollTop={scrollTop}
-                           tableRect={tableRect}
+                           tableLeftBorder={tableLeftBorder}
                            scrollLeft={scrollLeft}>
               {el.props.children}
             </Table>)
@@ -76,7 +76,7 @@ class Table extends React.Component {
                isFixed={children.props.className}
                key={children.type.length}
                scrollTop={scrollTop}
-               tableRect={tableRect}
+               tableLeftBorder={tableLeftBorder}
                scrollLeft={scrollLeft}>{children.props.children}
           </Row>)
       } else {
@@ -85,7 +85,7 @@ class Table extends React.Component {
                  isFixed={children.props.className}
                  key={children.type.length}
                  scrollTop={scrollTop}
-                 tableRect={tableRect}
+                 tableLeftBorder={tableLeftBorder}
                  scrollLeft={scrollLeft}>{children.props.children}
           </Table>
         )
