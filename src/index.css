@@ -28,9 +28,6 @@ code {
   background-color: red;
   position: relative;
 }
-.fixed {
-  position: absolute;
-}
 .row-fixed {
   background-color: #1616ff;
   width: fit-content;
