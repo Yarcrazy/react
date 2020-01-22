@@ -16,7 +16,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     if (this.props.className === 'table') {
-      this.setState({tableLeftBorder: this.tableRef.current.getBoundingClientRect().x});
+      this.setState({tableLeftBorder: [this.tableRef.current.getBoundingClientRect().x]});
     }
   }
 
@@ -25,6 +25,17 @@ class Table extends React.Component {
       this.setState({
         scrollTop: e.target.scrollTop,
         scrollLeft: e.target.scrollLeft,
+      });
+    }
+  };
+
+  handleChangeBorder = (tableLeftBorder) => {
+    if (this.props.className === 'table') {
+      this.setState((state) => {
+        // Если такого значения границы нет в массиве, то добавлять
+        return (!state.tableLeftBorder.includes(tableLeftBorder)) ?
+          {tableLeftBorder: [...state.tableLeftBorder, tableLeftBorder]} :
+          {tableLeftBorder: state.tableLeftBorder};
       });
     }
   };
@@ -38,11 +49,13 @@ class Table extends React.Component {
     let scrollLeft = this.props.scrollLeft;
     let scrollTop = this.props.scrollTop;
     let tableLeftBorder = this.props.tableLeftBorder;
+    let onChangeBorder = this.props.onChangeBorder;
 
     if (this.props.className === 'table') {
       scrollTop = this.state.scrollTop;
       scrollLeft = this.state.scrollLeft;
       tableLeftBorder = this.state.tableLeftBorder;
+      onChangeBorder = this.handleChangeBorder;
     }
 
     if (Array.isArray(children)) {
@@ -54,6 +67,7 @@ class Table extends React.Component {
                          key={i}
                          scrollTop={scrollTop}
                          tableLeftBorder={tableLeftBorder}
+                         onChangeBorder={onChangeBorder}
                          scrollLeft={scrollLeft}>
               {el.props.children}
             </Row>)
@@ -63,6 +77,7 @@ class Table extends React.Component {
                            key={i}
                            scrollTop={scrollTop}
                            tableLeftBorder={tableLeftBorder}
+                           onChangeBorder={onChangeBorder}
                            scrollLeft={scrollLeft}>
               {el.props.children}
             </Table>)
@@ -77,6 +92,7 @@ class Table extends React.Component {
                key={children.type.length}
                scrollTop={scrollTop}
                tableLeftBorder={tableLeftBorder}
+               onChangeBorder={onChangeBorder}
                scrollLeft={scrollLeft}>{children.props.children}
           </Row>)
       } else {
@@ -86,6 +102,7 @@ class Table extends React.Component {
                  key={children.type.length}
                  scrollTop={scrollTop}
                  tableLeftBorder={tableLeftBorder}
+                 onChangeBorder={onChangeBorder}
                  scrollLeft={scrollLeft}>{children.props.children}
           </Table>
         )
