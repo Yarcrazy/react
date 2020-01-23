@@ -25,7 +25,6 @@ class Cell extends React.Component {
     const num = this.props.num;
 
     if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
-      console.log(this.props.tableLeftBorder);
 
       if ((this.props.scrollLeft >= this.state.defaultCellLeftBorder - this.props.tableLeftBorder[num])) {
         if (!this.state.fixFlag) {
