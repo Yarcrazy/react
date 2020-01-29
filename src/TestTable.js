@@ -21,7 +21,17 @@ export default function TestTable() {
       <tr>
         <td>1</td>
         <td className={'col-fixed'}>2</td>
-        <td>3</td>
+        <td><table>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+        </table></td>
         <td className={'col-fixed'}>4</td>
         <td>5</td>
         <td className={'col-fixed'}>6</td>
