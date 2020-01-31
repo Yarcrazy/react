@@ -21,11 +21,11 @@ code {
 }
 
 .td, .th {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
   font-size: 26px;
-  min-height: @cell-height;
+  height: @cell-height;
   min-width: @cell-width;
   border: black solid 1px;
   box-sizing: border-box;
@@ -38,11 +38,18 @@ code {
 
 .row-fixed {
   background-color: #1616ff;
-  width: fit-content;
+  width: 110vh;
   z-index: 2;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.fixed {
+  position: absolute;
 }
 
 .tr {
-  display: flex;
-  position: relative;
+  display: table-row;
 }

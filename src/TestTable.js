@@ -8,7 +8,17 @@ export default function TestTable() {
       <tr className={'row-fixed'}>
         <th><div>ш1</div></th>
         <th className={'col-fixed'}>ш2</th>
-        <th>ш3</th>
+        <th><table>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+        </table></th>
         <th className={'col-fixed'}>ш4</th>
         <th>ш5</th>
         <th className={'col-fixed'}>ш6</th>
