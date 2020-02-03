@@ -10,6 +10,7 @@ code {
 .table {
   margin: 100px 0 0 100px;
   max-height: 100vh;
+  width: 1000px;
   overflow: scroll;
 }
 .td,
@@ -29,9 +30,9 @@ code {
 }
 .row-fixed {
   background-color: #1616ff;
-  width: 110vh;
   z-index: 2;
   overflow-x: scroll;
+  width: 1000px;
 }
 .row-fixed::-webkit-scrollbar {
   display: none;
@@ -41,5 +42,8 @@ code {
 }
 .tr {
   display: table-row;
+}
+.tbody {
+  position: relative;
 }
 /*# sourceMappingURL=index.css.map */
