@@ -12,6 +12,11 @@ class TBody extends React.Component {
     const tableLeftBorder = this.props.tableLeftBorder;
     const top = this.props.fixedRowBottom ? this.props.fixedRowBottom : 0;
 
+    // const tBody = document.querySelector('.tBody');
+    // if (tBody) {
+    //   tBody.scrollLeft = this.state.scrollLeft;
+    // }
+
     rows.push(
       children.map((el, i) => {
         return <Row className={el.type}

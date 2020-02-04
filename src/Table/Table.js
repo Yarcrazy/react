@@ -53,6 +53,12 @@ class Table extends React.Component {
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
 
+    // const table = document.querySelector('.table');
+    if (this.ref) {
+      console.log(this.ref.current.scrollLeft);
+      //this.ref.current.scrollLeft = this.state.scrollLeft;
+    }
+
     rows.push(
       children.map((el, i) => {
         if (el.type === 'thead') {

@@ -21,6 +21,16 @@ class FixedRow extends React.Component {
     let tableLeftBorder = 0;
     let onChangeBorder;
 
+    // if (this.ref) {
+    //   this.ref.current.scrollLeft = this.props.scrollLeft;
+    // document.querySelector('.row-fixed').scrollLeft = this.props.scrollLeft;
+    // }
+    const rowFixed = document.querySelector('.row-fixed');
+    if (rowFixed) {
+      //console.log(document.querySelector('.row-fixed').scrollLeft);
+      rowFixed.scrollLeft = this.props.scrollLeft;
+    }
+
     if (this.props.isFixed === 'row-fixed') {
       if (this.props.scrollTop !== 0) {
         className += ' fixed';
