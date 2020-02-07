@@ -39,22 +39,9 @@ class FixedRow extends React.Component {
     }
 
     if (this.props.isFixed === 'row-fixed') {
-      if (this.props.scrollTop !== 0) {
+      if (this.props.isScrolledTop) {
         className += ' fixed';
         top = this.props.tableTopBorder;
-        if (!this.state.isRowAbsolute) {
-          this.setState({
-            isRowAbsolute: true,
-          });
-          this.props.onRowAbsolute(true);
-        }
-      } else {
-        if (this.state.isRowAbsolute) {
-          this.setState({
-            isRowAbsolute: false,
-          });
-          this.props.onRowAbsolute(false);
-        }
       }
       //scrollTop = this.props.scrollTop;
       //scrollTop = this.props.tableRef.current.scrollTop;

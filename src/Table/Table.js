@@ -1,5 +1,4 @@
 import React from 'react';
-import THead from "./THead";
 import FixedRow from "./FixedRow";
 import Row from "./Row";
 
@@ -11,8 +10,7 @@ class Table extends React.Component {
     super(props);
     this.state = {
       scrollLeft: 0,
-      scrollTop: 0,
-      isRowAbsolute: false,
+      isScrolledTop: false,
     }
   }
 
@@ -25,10 +23,16 @@ class Table extends React.Component {
   }
 
   handleScroll = (e) => {
+    if ((e.target.screenTop !== 0) && (!this.state.isScrolledTop)) {
+      this.setState(
+        {
+          isScrolledTop: true,
+        }
+      )
+    }
     this.setState(
       {
         scrollLeft: e.target.scrollLeft,
-        scrollTop: e.target.scrollTop,
       }
     )
   };
@@ -46,10 +50,6 @@ class Table extends React.Component {
     this.setState({fixedRowBottom: fixedRowBottom});
   };
 
-  handleRowAbsolute = (isRowAbsolute) => {
-    this.setState({isRowAbsolute: isRowAbsolute});
-  };
-
   render() {
     const rows = [];
     const children = this.props.children;
@@ -60,12 +60,11 @@ class Table extends React.Component {
     const scrollLeft = this.state.scrollLeft;
     const tableLeftBorder = this.state.tableLeftBorder;
     const tableTopBorder = this.state.tableTopBorder;
-    const scrollTop = this.state.scrollTop;
+    const isScrolledTop = this.state.isScrolledTop;
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
-    const onRowAbsolute = this.handleRowAbsolute;
 
-    if (this.state.isRowAbsolute) {
+    if (isScrolledTop) {
       paddingTop = this.state.fixedRowBottom;
     }
 
@@ -79,9 +78,8 @@ class Table extends React.Component {
                            tableLeftBorder={tableLeftBorder}
                            tableTopBorder={tableTopBorder}
                            onChangeBorder={onChangeBorder}
-                           scrollTop={scrollTop}
                            onChangeFixedRowBottom={onChangeFixedRowBottom}
-                           onRowAbsolute={onRowAbsolute}
+                           isScrolledTop={isScrolledTop}
                            scrollLeft={scrollLeft}>
             {el.props.children}
           </FixedRow>
