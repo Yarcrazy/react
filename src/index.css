@@ -32,16 +32,17 @@ code {
   background-color: #1616ff;
   z-index: 2;
   overflow-x: hidden;
-  width: 1000px;
+  width: 983px;
 }
 .row-fixed::-webkit-scrollbar {
   display: none;
 }
-.fixed {
-  position: absolute;
-}
 .tr {
   display: table-row;
+  position: relative;
+}
+.fixed {
+  position: absolute;
 }
 .tbody {
   position: relative;

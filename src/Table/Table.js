@@ -1,6 +1,7 @@
 import React from 'react';
 import THead from "./THead";
-import TBody from "./TBody";
+import FixedRow from "./FixedRow";
+import Row from "./Row";
 
 class Table extends React.Component {
 
@@ -10,6 +11,8 @@ class Table extends React.Component {
     super(props);
     this.state = {
       scrollLeft: 0,
+      scrollTop: 0,
+      isRowAbsolute: false,
     }
   }
 
@@ -22,9 +25,12 @@ class Table extends React.Component {
   }
 
   handleScroll = (e) => {
-    this.setState({
-      scrollLeft: e.target.scrollLeft,
-    });
+    this.setState(
+      {
+        scrollLeft: e.target.scrollLeft,
+        scrollTop: e.target.scrollTop,
+      }
+    )
   };
 
   handleChangeBorder = (tableLeftBorder) => {
@@ -40,55 +46,64 @@ class Table extends React.Component {
     this.setState({fixedRowBottom: fixedRowBottom});
   };
 
+  handleRowAbsolute = (isRowAbsolute) => {
+    this.setState({isRowAbsolute: isRowAbsolute});
+  };
+
   render() {
     const rows = [];
     const children = this.props.children;
     let className = '';
+    let paddingTop = 0;
     this.tableRef = React.createRef();
 
     const scrollLeft = this.state.scrollLeft;
     const tableLeftBorder = this.state.tableLeftBorder;
     const tableTopBorder = this.state.tableTopBorder;
-    const fixedRowBottom = this.state.fixedRowBottom;
+    const scrollTop = this.state.scrollTop;
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
+    const onRowAbsolute = this.handleRowAbsolute;
 
-    // const table = document.querySelector('.table');
-    if (this.ref) {
-      console.log(this.ref.current.scrollLeft);
-      //this.ref.current.scrollLeft = this.state.scrollLeft;
+    if (this.state.isRowAbsolute) {
+      paddingTop = this.state.fixedRowBottom;
     }
 
     rows.push(
       children.map((el, i) => {
         if (el.type === 'thead') {
-          return (<THead className={el.type}
-                         isFixed={el.props.className}
-                         key={i}
-                         tableLeftBorder={tableLeftBorder}
-                         tableTopBorder={tableTopBorder}
-                         onChangeBorder={onChangeBorder}
-                         onChangeFixedRowBottom={onChangeFixedRowBottom}
-                         scrollLeft={scrollLeft}>
+          el = el.props.children;
+          return <FixedRow className={el.type}
+                           isFixed={el.props.className}
+                           key={i}
+                           tableLeftBorder={tableLeftBorder}
+                           tableTopBorder={tableTopBorder}
+                           onChangeBorder={onChangeBorder}
+                           scrollTop={scrollTop}
+                           onChangeFixedRowBottom={onChangeFixedRowBottom}
+                           onRowAbsolute={onRowAbsolute}
+                           scrollLeft={scrollLeft}>
             {el.props.children}
-          </THead>)
+          </FixedRow>
         }
         if (el.type === 'tbody') {
-          return (<TBody className={el.type}
-                         isFixed={el.props.className}
-                         key={i}
-                         tableLeftBorder={tableLeftBorder}
-                         fixedRowBottom={fixedRowBottom}
-                         scrollLeft={scrollLeft}>
-            {el.props.children}
-          </TBody>)
+          const child = el.props.children;
+          return child.map((elem, j) => {
+            return <Row className={elem.type}
+                        isFixed={elem.props.className}
+                        key={j}
+                        tableLeftBorder={tableLeftBorder}
+                        scrollLeft={scrollLeft}>
+              {elem.props.children}
+            </Row>
+          })
         }
       })
     );
 
     className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     return (
-      <div className={className} ref={this.tableRef} onScroll={this.handleScroll}>
+      <div className={className} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
         {rows}
       </div>
     );

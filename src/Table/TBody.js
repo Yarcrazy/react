@@ -32,9 +32,7 @@ class TBody extends React.Component {
     className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
 
     return (
-      <div className={className} style={{top: top}}>
         {rows}
-      </div>
     );
   }
 }

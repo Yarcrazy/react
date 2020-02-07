@@ -5,6 +5,13 @@ class FixedRow extends React.Component {
 
   ref;
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRowAbsolute: false,
+    }
+  }
+
   componentDidMount() {
     const rowRect = this.ref.current.getBoundingClientRect();
     this.props.onChangeFixedRowBottom(rowRect.height);
@@ -35,6 +42,19 @@ class FixedRow extends React.Component {
       if (this.props.scrollTop !== 0) {
         className += ' fixed';
         top = this.props.tableTopBorder;
+        if (!this.state.isRowAbsolute) {
+          this.setState({
+            isRowAbsolute: true,
+          });
+          this.props.onRowAbsolute(true);
+        }
+      } else {
+        if (this.state.isRowAbsolute) {
+          this.setState({
+            isRowAbsolute: false,
+          });
+          this.props.onRowAbsolute(false);
+        }
       }
       //scrollTop = this.props.scrollTop;
       //scrollTop = this.props.tableRef.current.scrollTop;
