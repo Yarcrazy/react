@@ -16,6 +16,9 @@ class Cell extends React.Component {
       this.setState({defaultCellLeftBorder: this.ref.current.getBoundingClientRect().x,
       width: this.ref.current.getBoundingClientRect().width});
     }
+    if (this.props.onFillCellWidthArray) {
+      this.props.onFillCellWidthArray(this.ref.current.getBoundingClientRect().width);
+    }
   }
 
   render() {
