@@ -8,18 +8,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 .table {
-  margin: 100px auto;
-  max-width: 100vh;
+  margin: 100px 0 0 100px;
   max-height: 100vh;
+  width: 1000px;
   overflow: scroll;
 }
 .td,
 .th {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
   font-size: 26px;
-  min-height: 200px;
+  height: 200px;
   min-width: 200px;
   border: black solid 1px;
   box-sizing: border-box;
@@ -28,16 +28,23 @@ code {
   background-color: red;
   position: relative;
 }
+.row-fixed {
+  background-color: #1616ff;
+  z-index: 2;
+  overflow-x: hidden;
+  width: 983px;
+}
+.row-fixed::-webkit-scrollbar {
+  display: none;
+}
+.tr {
+  display: table-row;
+  position: relative;
+}
 .fixed {
   position: absolute;
 }
-.row-fixed {
-  background-color: #1616ff;
-  width: fit-content;
-  z-index: 2;
-}
-.tr {
-  display: flex;
+.tbody {
   position: relative;
 }
 /*# sourceMappingURL=index.css.map */

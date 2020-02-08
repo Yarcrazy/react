@@ -1,4 +1,5 @@
 import React from 'react';
+import FixedRow from "./FixedRow";
 import Row from "./Row";
 
 class Table extends React.Component {
@@ -8,94 +9,99 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFixed: props.isFixed,
       scrollLeft: 0,
-      scrollTop: 0,
+      isScrolledTop: false,
     }
   }
 
   componentDidMount() {
-    if (this.props.className === 'table') {
-      this.setState({tableRect: this.tableRef.current.getBoundingClientRect()});
-    }
+    const tableRect = this.tableRef.current.getBoundingClientRect();
+    this.setState({
+      tableLeftBorder: [tableRect.x],
+      tableTopBorder: tableRect.top,
+    });
   }
 
   handleScroll = (e) => {
-    if (this.props.className === 'table') {
-      this.setState({
-        scrollTop: e.target.scrollTop,
-        scrollLeft: e.target.scrollLeft,
-      });
+    if ((e.target.screenTop !== 0) && (!this.state.isScrolledTop)) {
+      this.setState(
+        {
+          isScrolledTop: true,
+        }
+      )
     }
+    this.setState(
+      {
+        scrollLeft: e.target.scrollLeft,
+      }
+    )
+  };
+
+  handleChangeBorder = (tableLeftBorder) => {
+    this.setState((state) => {
+      // Если такого значения границы нет в массиве, то добавлять
+      return (!state.tableLeftBorder.includes(tableLeftBorder)) ?
+        {tableLeftBorder: [...state.tableLeftBorder, tableLeftBorder]} :
+        {tableLeftBorder: state.tableLeftBorder};
+    });
+  };
+
+  handleChangeFixedRowBottom = (fixedRowBottom) => {
+    this.setState({fixedRowBottom: fixedRowBottom});
   };
 
   render() {
     const rows = [];
     const children = this.props.children;
     let className = '';
-    this.tableRef = (this.props.className === 'table') ? React.createRef() : '';
+    let paddingTop = 0;
+    this.tableRef = React.createRef();
 
-    let scrollLeft = this.props.scrollLeft;
-    let scrollTop = this.props.scrollTop;
-    let tableRect = this.props.tableRect;
+    const scrollLeft = this.state.scrollLeft;
+    const tableLeftBorder = this.state.tableLeftBorder;
+    const tableTopBorder = this.state.tableTopBorder;
+    const isScrolledTop = this.state.isScrolledTop;
+    const onChangeBorder = this.handleChangeBorder;
+    const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
 
-    if (this.props.className === 'table') {
-      scrollTop = this.state.scrollTop;
-      scrollLeft = this.state.scrollLeft;
-      tableRect = this.state.tableRect;
+    if (isScrolledTop) {
+      paddingTop = this.state.fixedRowBottom;
     }
 
-    if (Array.isArray(children)) {
-      rows.push(
-        children.map((el, i) => {
-          if (el.type === 'tr') {
-            return (<Row className={el.type}
-                         isFixed={el.props.className}
-                         key={i}
-                         scrollTop={scrollTop}
-                         tableRect={tableRect}
-                         scrollLeft={scrollLeft}>
-              {el.props.children}
-            </Row>)
-          } else {
-            return (<Table className={el.type}
+    rows.push(
+      children.map((el, i) => {
+        if (el.type === 'thead') {
+          el = el.props.children;
+          return <FixedRow className={el.type}
                            isFixed={el.props.className}
                            key={i}
-                           scrollTop={scrollTop}
-                           tableRect={tableRect}
+                           tableLeftBorder={tableLeftBorder}
+                           tableTopBorder={tableTopBorder}
+                           onChangeBorder={onChangeBorder}
+                           onChangeFixedRowBottom={onChangeFixedRowBottom}
+                           isScrolledTop={isScrolledTop}
                            scrollLeft={scrollLeft}>
-              {el.props.children}
-            </Table>)
-          }
-        })
-      );
-    } else {
-      if (children.type === 'tr') {
-        rows.push(
-          <Row className={children.type}
-               isFixed={children.props.className}
-               key={children.type.length}
-               scrollTop={scrollTop}
-               tableRect={tableRect}
-               scrollLeft={scrollLeft}>{children.props.children}
-          </Row>)
-      } else {
-        rows.push(
-          <Table className={children.type}
-                 isFixed={children.props.className}
-                 key={children.type.length}
-                 scrollTop={scrollTop}
-                 tableRect={tableRect}
-                 scrollLeft={scrollLeft}>{children.props.children}
-          </Table>
-        )
-      }
-    }
+            {el.props.children}
+          </FixedRow>
+        }
+        if (el.type === 'tbody') {
+          const child = el.props.children;
+          return child.map((elem, j) => {
+            return <Row className={elem.type}
+                        isFixed={elem.props.className}
+                        key={j}
+                        tableLeftBorder={tableLeftBorder}
+                        scrollLeft={scrollLeft}>
+              {elem.props.children}
+            </Row>
+          })
+        }
+      })
+    );
 
-    className += this.props.className + ' ' + (this.state.isFixed ? this.state.isFixed : '');
-    //TODO можно использовать classNames
+    className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     return (
-      <div className={className} ref={this.tableRef} onScroll={this.handleScroll}>
+      <div className={className} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
         {rows}
       </div>
     );
