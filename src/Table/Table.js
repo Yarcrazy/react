@@ -11,6 +11,7 @@ class Table extends React.Component {
     this.state = {
       scrollLeft: 0,
       isScrolledTop: false,
+      cellsWidth: [],
     }
   }
 
@@ -23,7 +24,7 @@ class Table extends React.Component {
   }
 
   handleScroll = (e) => {
-    if ((e.target.screenTop !== 0) && (!this.state.isScrolledTop)) {
+    if ((e.target.scrollTop !== 0) && (!this.state.isScrolledTop)) {
       this.setState(
         {
           isScrolledTop: true,
@@ -42,13 +43,19 @@ class Table extends React.Component {
       // Если такого значения границы нет в массиве, то добавлять
       return (!state.tableLeftBorder.includes(tableLeftBorder)) ?
         {tableLeftBorder: [...state.tableLeftBorder, tableLeftBorder]} :
-        {tableLeftBorder: state.tableLeftBorder};
+        false;
     });
   };
 
   handleChangeFixedRowBottom = (fixedRowBottom) => {
     this.setState({fixedRowBottom: fixedRowBottom});
   };
+
+  handleFillCellWidthArray = (cellWidth) => (
+    this.setState((state) => {
+      return {cellsWidth: [...state.cellsWidth, cellWidth]}
+    })
+  );
 
   render() {
     const rows = [];
@@ -63,6 +70,7 @@ class Table extends React.Component {
     const isScrolledTop = this.state.isScrolledTop;
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
+    const onFillCellWidthArray = this.handleFillCellWidthArray;
 
     if (isScrolledTop) {
       paddingTop = this.state.fixedRowBottom;
@@ -79,6 +87,7 @@ class Table extends React.Component {
                            tableTopBorder={tableTopBorder}
                            onChangeBorder={onChangeBorder}
                            onChangeFixedRowBottom={onChangeFixedRowBottom}
+                           onFillCellWidthArray={onFillCellWidthArray}
                            isScrolledTop={isScrolledTop}
                            scrollLeft={scrollLeft}>
             {el.props.children}
