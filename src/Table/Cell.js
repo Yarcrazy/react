@@ -13,11 +13,21 @@ class Cell extends React.Component {
 
   componentDidMount() {
     if (this.props.isFixed === 'col-fixed') {
-      this.setState({defaultCellLeftBorder: this.ref.current.getBoundingClientRect().x,
-      width: this.ref.current.getBoundingClientRect().width});
+      this.setState({
+        defaultCellLeftBorder: this.ref.current.getBoundingClientRect().x,
+        width: this.ref.current.getBoundingClientRect().width
+      });
     }
     if (this.props.onFillCellWidthArray) {
       this.props.onFillCellWidthArray(this.ref.current.getBoundingClientRect().width);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(this.ref.current.getBoundingClientRect().width);
+    if (this.ref.current.getBoundingClientRect().width > this.props.cellsWidth[this.props.i]) {
+      this.props.onResizeCellWidth(this.ref.current.getBoundingClientRect().width, this.props.i);
+      this.setState({width: this.props.cellsWidth[this.props.i]});
     }
   }
 
@@ -25,6 +35,7 @@ class Cell extends React.Component {
     this.ref = React.createRef();
     let className = this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     let cellLeft = 0;
+    let width = this.props.cellsWidth[this.props.i];
     const num = this.props.num;
 
     if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
@@ -48,7 +59,7 @@ class Cell extends React.Component {
       }
     }
 
-    return <div className={className} style={{left: cellLeft}} ref={this.ref}>
+    return <div className={className} style={{left: cellLeft, minWidth: width}} ref={this.ref}>
       {this.props.children}
     </div>
   }

@@ -7,6 +7,8 @@ class Row extends React.Component {
     let rows = [];
     let className = this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     const children = this.props.children;
+    const onResizeCellWidth = this.props.onResizeCellWidth;
+    const cellsWidth = this.props.cellsWidth;
 
     let scrollLeft = 0;
     let tableLeftBorder = 0;
@@ -22,8 +24,11 @@ class Row extends React.Component {
           return <Cell className={el.type}
                        isFixed={el.props.className}
                        key={i}
+                       i={i}
                        num={j}
                        tableLeftBorder={tableLeftBorder}
+                       onResizeCellWidth={onResizeCellWidth}
+                       cellsWidth={cellsWidth}
                        scrollLeft={scrollLeft}>
             {el.props.children}
           </Cell>

@@ -57,6 +57,14 @@ class Table extends React.Component {
     })
   );
 
+  handleResizeCellWidth = (cellWidth, i) => (
+    this.setState((state) => {
+      let cellsWidth = state.cellsWidth;
+      cellsWidth[i] = cellWidth;
+      return cellsWidth
+    })
+  );
+
   render() {
     const rows = [];
     const children = this.props.children;
@@ -65,12 +73,14 @@ class Table extends React.Component {
     this.tableRef = React.createRef();
 
     const scrollLeft = this.state.scrollLeft;
+    const cellsWidth = this.state.cellsWidth;
     const tableLeftBorder = this.state.tableLeftBorder;
     const tableTopBorder = this.state.tableTopBorder;
     const isScrolledTop = this.state.isScrolledTop;
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
     const onFillCellWidthArray = this.handleFillCellWidthArray;
+    const onResizeCellWidth = this.handleResizeCellWidth;
 
     if (isScrolledTop) {
       paddingTop = this.state.fixedRowBottom;
@@ -88,8 +98,10 @@ class Table extends React.Component {
                            onChangeBorder={onChangeBorder}
                            onChangeFixedRowBottom={onChangeFixedRowBottom}
                            onFillCellWidthArray={onFillCellWidthArray}
+                           onResizeCellWidth={onResizeCellWidth}
                            isScrolledTop={isScrolledTop}
-                           scrollLeft={scrollLeft}>
+                           scrollLeft={scrollLeft}
+                           cellsWidth={cellsWidth}>
             {el.props.children}
           </FixedRow>
         }
@@ -100,6 +112,8 @@ class Table extends React.Component {
                         isFixed={elem.props.className}
                         key={j}
                         tableLeftBorder={tableLeftBorder}
+                        onResizeCellWidth={onResizeCellWidth}
+                        cellsWidth={cellsWidth}
                         scrollLeft={scrollLeft}>
               {elem.props.children}
             </Row>

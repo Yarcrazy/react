@@ -28,6 +28,8 @@ class FixedRow extends React.Component {
     let tableLeftBorder = 0;
     let onChangeBorder;
     const onFillCellWidthArray = this.props.onFillCellWidthArray;
+    const onResizeCellWidth = this.props.onResizeCellWidth;
+    const cellsWidth = this.props.cellsWidth;
 
     // if (this.ref) {
     //   this.ref.current.scrollLeft = this.props.scrollLeft;
@@ -63,10 +65,13 @@ class FixedRow extends React.Component {
           return <Cell className={el.type}
                        isFixed={el.props.className}
                        key={i}
+                       i={i}
                        num={j}
                        tableLeftBorder={tableLeftBorder}
                        onChangeBorder={onChangeBorder}
                        onFillCellWidthArray={onFillCellWidthArray}
+                       onResizeCellWidth={onResizeCellWidth}
+                       cellsWidth={cellsWidth}
                        scrollLeft={scrollLeft}>
             {el.props.children}
           </Cell>

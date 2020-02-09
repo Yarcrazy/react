@@ -22,11 +22,12 @@ code {
 }
 
 .td, .th {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
   font-size: 26px;
-  height: @cell-height;
+  min-height: @cell-height;
   min-width: @cell-width;
   border: black solid 1px;
   box-sizing: border-box;
@@ -48,7 +49,7 @@ code {
 }
 
 .tr {
-  display: table-row;
+  display: flex;
   position: relative;
 }
 
