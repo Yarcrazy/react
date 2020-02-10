@@ -27,9 +27,10 @@ class FixedRow extends React.Component {
     let scrollLeft = 0;
     let tableLeftBorder = 0;
     let onChangeBorder;
-    const onFillCellWidthArray = this.props.onFillCellWidthArray;
-    const onResizeCellWidth = this.props.onResizeCellWidth;
+    const onFillCellWidth = this.props.onFillCellWidth;
+    const onFillLeftBorderArray = this.props.onFillLeftBorderArray;
     const cellsWidth = this.props.cellsWidth;
+    const cellsFixedX = this.props.cellsFixedX;
 
     // if (this.ref) {
     //   this.ref.current.scrollLeft = this.props.scrollLeft;
@@ -42,10 +43,8 @@ class FixedRow extends React.Component {
     }
 
     if (this.props.isFixed === 'row-fixed') {
-      if (this.props.isScrolledTop) {
         className += ' fixed';
         top = this.props.tableTopBorder;
-      }
       //scrollTop = this.props.scrollTop;
       //scrollTop = this.props.tableRef.current.scrollTop;
       //console.log(this.props.tableRef);
@@ -69,9 +68,10 @@ class FixedRow extends React.Component {
                        num={j}
                        tableLeftBorder={tableLeftBorder}
                        onChangeBorder={onChangeBorder}
-                       onFillCellWidthArray={onFillCellWidthArray}
-                       onResizeCellWidth={onResizeCellWidth}
+                       onFillCellWidth={onFillCellWidth}
+                       onFillLeftBorderArray={onFillLeftBorderArray}
                        cellsWidth={cellsWidth}
+                       cellsFixedX={cellsFixedX}
                        scrollLeft={scrollLeft}>
             {el.props.children}
           </Cell>

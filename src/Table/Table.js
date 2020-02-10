@@ -10,8 +10,8 @@ class Table extends React.Component {
     super(props);
     this.state = {
       scrollLeft: 0,
-      isScrolledTop: false,
       cellsWidth: [],
+      cellsFixedX: [],
     }
   }
 
@@ -51,17 +51,27 @@ class Table extends React.Component {
     this.setState({fixedRowBottom: fixedRowBottom});
   };
 
-  handleFillCellWidthArray = (cellWidth) => (
+  handleFillLeftBorderArray = (cellX, i) => (
     this.setState((state) => {
-      return {cellsWidth: [...state.cellsWidth, cellWidth]}
+      let cellsFixedX = state.cellsFixedX;
+      if (cellsFixedX[i] === undefined) {
+        cellsFixedX.push(cellX);
+      } else if (cellX > cellsFixedX[i]) {
+        cellsFixedX[i] = cellX;
+      }
+      return {cellsFixedX: cellsFixedX}
     })
   );
 
-  handleResizeCellWidth = (cellWidth, i) => (
+  handleFillCellWidth = (cellWidth, i) => (
     this.setState((state) => {
       let cellsWidth = state.cellsWidth;
-      cellsWidth[i] = cellWidth;
-      return cellsWidth
+      if (cellsWidth[i] === undefined) {
+        cellsWidth.push(cellWidth);
+      } else if (cellWidth > cellsWidth[i]) {
+        cellsWidth[i] = cellWidth;
+      }
+      return {cellsWidth: cellsWidth}
     })
   );
 
@@ -69,22 +79,19 @@ class Table extends React.Component {
     const rows = [];
     const children = this.props.children;
     let className = '';
-    let paddingTop = 0;
     this.tableRef = React.createRef();
 
     const scrollLeft = this.state.scrollLeft;
     const cellsWidth = this.state.cellsWidth;
+    const cellsFixedX = this.state.cellsFixedX;
     const tableLeftBorder = this.state.tableLeftBorder;
     const tableTopBorder = this.state.tableTopBorder;
-    const isScrolledTop = this.state.isScrolledTop;
     const onChangeBorder = this.handleChangeBorder;
     const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
-    const onFillCellWidthArray = this.handleFillCellWidthArray;
-    const onResizeCellWidth = this.handleResizeCellWidth;
+    const onFillCellWidth = this.handleFillCellWidth;
+    const onFillLeftBorderArray = this.handleFillLeftBorderArray;
 
-    if (isScrolledTop) {
-      paddingTop = this.state.fixedRowBottom;
-    }
+    const paddingTop = this.state.fixedRowBottom;
 
     rows.push(
       children.map((el, i) => {
@@ -97,10 +104,10 @@ class Table extends React.Component {
                            tableTopBorder={tableTopBorder}
                            onChangeBorder={onChangeBorder}
                            onChangeFixedRowBottom={onChangeFixedRowBottom}
-                           onFillCellWidthArray={onFillCellWidthArray}
-                           onResizeCellWidth={onResizeCellWidth}
-                           isScrolledTop={isScrolledTop}
+                           onFillCellWidth={onFillCellWidth}
+                           onFillLeftBorderArray={onFillLeftBorderArray}
                            scrollLeft={scrollLeft}
+                           cellsFixedX={cellsFixedX}
                            cellsWidth={cellsWidth}>
             {el.props.children}
           </FixedRow>
@@ -112,8 +119,10 @@ class Table extends React.Component {
                         isFixed={elem.props.className}
                         key={j}
                         tableLeftBorder={tableLeftBorder}
-                        onResizeCellWidth={onResizeCellWidth}
+                        onFillCellWidth={onFillCellWidth}
+                        onFillLeftBorderArray={onFillLeftBorderArray}
                         cellsWidth={cellsWidth}
+                        cellsFixedX={cellsFixedX}
                         scrollLeft={scrollLeft}>
               {elem.props.children}
             </Row>

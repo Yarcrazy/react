@@ -12,24 +12,20 @@ class Cell extends React.Component {
   }
 
   componentDidMount() {
+    const rect = this.ref.current.getBoundingClientRect();
     if (this.props.isFixed === 'col-fixed') {
-      this.setState({
-        defaultCellLeftBorder: this.ref.current.getBoundingClientRect().x,
-        width: this.ref.current.getBoundingClientRect().width
-      });
+      this.props.onFillLeftBorderArray(rect.x, this.props.num);
     }
-    if (this.props.onFillCellWidthArray) {
-      this.props.onFillCellWidthArray(this.ref.current.getBoundingClientRect().width);
-    }
+    this.props.onFillCellWidth(rect.width, this.props.i);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(this.ref.current.getBoundingClientRect().width);
-    if (this.ref.current.getBoundingClientRect().width > this.props.cellsWidth[this.props.i]) {
-      this.props.onResizeCellWidth(this.ref.current.getBoundingClientRect().width, this.props.i);
-      this.setState({width: this.props.cellsWidth[this.props.i]});
-    }
-  }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log(this.ref.current.getBoundingClientRect().width);
+  //   if (this.ref.current.getBoundingClientRect().width > this.props.cellsWidth[this.props.i]) {
+  //     this.props.onFillCellWidth(this.ref.current.getBoundingClientRect().width, this.props.i);
+  //     this.setState({width: this.props.cellsWidth[this.props.i]});
+  //   }
+  // }
 
   render() {
     this.ref = React.createRef();
@@ -40,11 +36,11 @@ class Cell extends React.Component {
 
     if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
 
-      if ((this.props.scrollLeft >= this.state.defaultCellLeftBorder - this.props.tableLeftBorder[num])) {
+      if ((this.props.scrollLeft >= this.props.cellsFixedX[num] - this.props.tableLeftBorder[num])) {
         if (!this.state.fixFlag) {
           this.setState({fixFlag: true});
           if (this.props.onChangeBorder) {
-            this.props.onChangeBorder(this.props.tableLeftBorder[num] + this.state.width);
+            this.props.onChangeBorder(this.props.tableLeftBorder[num] + width);
           }
         }
       } else {
@@ -55,7 +51,7 @@ class Cell extends React.Component {
       }
 
       if (this.state.fixFlag) {
-        cellLeft = this.props.scrollLeft - this.state.defaultCellLeftBorder + this.props.tableLeftBorder[num];
+        cellLeft = this.props.scrollLeft - this.props.cellsFixedX[num] + this.props.tableLeftBorder[num];
       }
     }
 
