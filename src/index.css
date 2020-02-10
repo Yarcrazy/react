@@ -15,11 +15,12 @@ code {
 }
 .td,
 .th {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
   font-size: 26px;
-  height: 200px;
+  min-height: 200px;
   min-width: 200px;
   border: black solid 1px;
   box-sizing: border-box;
@@ -30,15 +31,14 @@ code {
 }
 .row-fixed {
   background-color: #1616ff;
-  z-index: 2;
+  z-index: 1;
   overflow-x: hidden;
-  width: 983px;
 }
 .row-fixed::-webkit-scrollbar {
   display: none;
 }
 .tr {
-  display: table-row;
+  display: flex;
   position: relative;
 }
 .fixed {
