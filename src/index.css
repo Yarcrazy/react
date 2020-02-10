@@ -33,7 +33,6 @@ code {
   background-color: #1616ff;
   z-index: 1;
   overflow-x: hidden;
-  width: 983px;
 }
 .row-fixed::-webkit-scrollbar {
   display: none;

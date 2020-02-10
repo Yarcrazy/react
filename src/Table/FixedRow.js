@@ -15,6 +15,7 @@ class FixedRow extends React.Component {
   componentDidMount() {
     const rowRect = this.ref.current.getBoundingClientRect();
     this.props.onChangeFixedRowBottom(rowRect.height);
+    this.setState({width: rowRect.width});
   }
 
   render() {
@@ -81,7 +82,7 @@ class FixedRow extends React.Component {
       )
     );
 
-    return <div className={className} style={{top: top}} ref={this.ref}>
+    return <div className={className} style={{top: top, width: this.state.width}} ref={this.ref}>
       {rows}
     </div>
   }
