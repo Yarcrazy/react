@@ -78,7 +78,7 @@ class Table extends React.Component {
 
   render() {
     const rows = [];
-    const children = this.props.children;
+    let children = this.props.children;
     let className = '';
     this.tableRef = React.createRef();
     let paddingTop = 0;
@@ -98,44 +98,51 @@ class Table extends React.Component {
       paddingTop = this.state.fixedRowBottom;
     }
 
-    rows.push(
-      children.map((el, i) => {
-        if (el.type === 'thead') {
-          el = el.props.children;
-          return <FixedRow className={el.type}
-                           isFixed={el.props.className}
-                           key={i}
-                           tableLeftBorder={tableLeftBorder}
-                           tableTopBorder={tableTopBorder}
-                           onChangeBorder={onChangeBorder}
-                           onChangeFixedRowBottom={onChangeFixedRowBottom}
-                           onFillCellWidth={onFillCellWidth}
-                           onFillLeftBorderArray={onFillLeftBorderArray}
-                           isScrolledTop={isScrolledTop}
-                           scrollLeft={scrollLeft}
-                           cellsFixedX={cellsFixedX}
-                           cellsWidth={cellsWidth}>
-            {el.props.children}
-          </FixedRow>
-        }
-        if (el.type === 'tbody') {
-          const child = el.props.children;
-          return child.map((elem, j) => {
-            return <Row className={elem.type}
-                        isFixed={elem.props.className}
-                        key={j}
-                        tableLeftBorder={tableLeftBorder}
-                        onFillCellWidth={onFillCellWidth}
-                        onFillLeftBorderArray={onFillLeftBorderArray}
-                        cellsWidth={cellsWidth}
-                        cellsFixedX={cellsFixedX}
-                        scrollLeft={scrollLeft}>
-              {elem.props.children}
-            </Row>
-          })
-        }
-      })
-    );
+    if (children !== undefined) {
+      if (!Array.isArray(children)) {
+        children = Array.of(children);
+      }
+
+      rows.push(
+        children.map((el, i) => {
+          if (el.type === 'thead') {
+            el = el.props.children;
+            return <FixedRow className={el.type}
+                             isFixed={el.props.className}
+                             key={i}
+                             tableLeftBorder={tableLeftBorder}
+                             tableTopBorder={tableTopBorder}
+                             onChangeBorder={onChangeBorder}
+                             onChangeFixedRowBottom={onChangeFixedRowBottom}
+                             onFillCellWidth={onFillCellWidth}
+                             onFillLeftBorderArray={onFillLeftBorderArray}
+                             isScrolledTop={isScrolledTop}
+                             scrollLeft={scrollLeft}
+                             cellsFixedX={cellsFixedX}
+                             cellsWidth={cellsWidth}>
+              {el.props.children}
+            </FixedRow>
+          }
+          if (el.type === 'tbody') {
+            const child = el.props.children;
+            return child.map((elem, j) => {
+              return <Row className={elem.type}
+                          isFixed={elem.props.className}
+                          key={j}
+                          tableLeftBorder={tableLeftBorder}
+                          onFillCellWidth={onFillCellWidth}
+                          onFillLeftBorderArray={onFillLeftBorderArray}
+                          cellsWidth={cellsWidth}
+                          cellsFixedX={cellsFixedX}
+                          scrollLeft={scrollLeft}>
+                {elem.props.children}
+              </Row>
+            })
+          }
+          return el
+        })
+      );
+    }
 
     className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     return (
