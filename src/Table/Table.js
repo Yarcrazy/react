@@ -99,6 +99,7 @@ class Table extends React.Component {
     }
 
     if (children !== undefined) {
+      // если внутри не массив, то делаем массивом
       if (!Array.isArray(children)) {
         children = Array.of(children);
       }
@@ -106,36 +107,44 @@ class Table extends React.Component {
       rows.push(
         children.map((el, i) => {
           if (el.type === 'thead') {
-            el = el.props.children;
-            return <FixedRow className={el.type}
-                             isFixed={el.props.className}
-                             key={i}
-                             tableLeftBorder={tableLeftBorder}
-                             tableTopBorder={tableTopBorder}
-                             onChangeBorder={onChangeBorder}
-                             onChangeFixedRowBottom={onChangeFixedRowBottom}
-                             onFillCellWidth={onFillCellWidth}
-                             onFillLeftBorderArray={onFillLeftBorderArray}
-                             isScrolledTop={isScrolledTop}
-                             scrollLeft={scrollLeft}
-                             cellsFixedX={cellsFixedX}
-                             cellsWidth={cellsWidth}>
-              {el.props.children}
-            </FixedRow>
+            let child = el.props.children;
+            if (!Array.isArray(child)) {
+              child = Array.of(child);
+            }
+            return child.map((el, i) => {
+              return <FixedRow className={el.type}
+                               isFixed={el.props.className}
+                               key={i}
+                               tableLeftBorder={tableLeftBorder}
+                               tableTopBorder={tableTopBorder}
+                               onChangeBorder={onChangeBorder}
+                               onChangeFixedRowBottom={onChangeFixedRowBottom}
+                               onFillCellWidth={onFillCellWidth}
+                               onFillLeftBorderArray={onFillLeftBorderArray}
+                               isScrolledTop={isScrolledTop}
+                               scrollLeft={scrollLeft}
+                               cellsFixedX={cellsFixedX}
+                               cellsWidth={cellsWidth}>
+                {el.props.children}
+              </FixedRow>
+            })
           }
-          if (el.type === 'tbody') {
-            const child = el.props.children;
-            return child.map((elem, j) => {
-              return <Row className={elem.type}
-                          isFixed={elem.props.className}
-                          key={j}
+          if ((el.type === 'tbody') || (el.type === 'tfoot')) {
+            let child = el.props.children;
+            if (!Array.isArray(child)) {
+              child = Array.of(child);
+            }
+            return child.map((el, i) => {
+              return <Row className={el.type}
+                          isFixed={el.props.className}
+                          key={i}
                           tableLeftBorder={tableLeftBorder}
                           onFillCellWidth={onFillCellWidth}
                           onFillLeftBorderArray={onFillLeftBorderArray}
                           cellsWidth={cellsWidth}
                           cellsFixedX={cellsFixedX}
                           scrollLeft={scrollLeft}>
-                {elem.props.children}
+                {el.props.children}
               </Row>
             })
           }
