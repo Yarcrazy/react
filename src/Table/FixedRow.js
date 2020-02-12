@@ -21,7 +21,7 @@ class FixedRow extends React.Component {
   render() {
     let rows = [];
     let className = this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
-    const children = this.props.children;
+    let children = this.props.children;
     this.ref = React.createRef();
 
     let top = 0;
@@ -53,34 +53,44 @@ class FixedRow extends React.Component {
       //console.log(this.props.tableRef);
     }
 
+    // j нужна для нумерования фиксированных столбцов
     let j = -1;
-    rows.push(
-      children.map((el, i) => {
-          if (el.props.className === 'col-fixed') {
-            if (this.props.isFixed === 'row-fixed') {
-              onChangeBorder = this.props.onChangeBorder;
+
+    if (children !== undefined) {
+      if (!Array.isArray(children)) {
+        children = Array.of(children);
+      }
+      rows.push(
+        children.map((el, i) => {
+            if ((el.type === 'th') || (el.type === 'td')) {
+              if (el.props.className === 'col-fixed') {
+                if (this.props.isFixed === 'row-fixed') {
+                  onChangeBorder = this.props.onChangeBorder;
+                }
+                scrollLeft = this.props.scrollLeft;
+                tableLeftBorder = this.props.tableLeftBorder;
+                j++;
+              }
+              return <Cell className={el.type}
+                           isFixed={el.props.className}
+                           key={i}
+                           i={i}
+                           num={j}
+                           tableLeftBorder={tableLeftBorder}
+                           onChangeBorder={onChangeBorder}
+                           onFillCellWidth={onFillCellWidth}
+                           onFillLeftBorderArray={onFillLeftBorderArray}
+                           cellsWidth={cellsWidth}
+                           cellsFixedX={cellsFixedX}
+                           scrollLeft={scrollLeft}>
+                {el.props.children}
+              </Cell>
             }
-            scrollLeft = this.props.scrollLeft;
-            tableLeftBorder = this.props.tableLeftBorder;
-            j++;
+            return el
           }
-          return <Cell className={el.type}
-                       isFixed={el.props.className}
-                       key={i}
-                       i={i}
-                       num={j}
-                       tableLeftBorder={tableLeftBorder}
-                       onChangeBorder={onChangeBorder}
-                       onFillCellWidth={onFillCellWidth}
-                       onFillLeftBorderArray={onFillLeftBorderArray}
-                       cellsWidth={cellsWidth}
-                       cellsFixedX={cellsFixedX}
-                       scrollLeft={scrollLeft}>
-            {el.props.children}
-          </Cell>
-        }
-      )
-    );
+        )
+      );
+    }
 
     return <div className={className} style={{top: top, width: this.state.width}} ref={this.ref}>
       {rows}
