@@ -5,7 +5,9 @@ export default function TestTable() {
   return (
     <Table className={'table'}>
       <thead>
+      <React.Fragment/>
       <tr className={'row-fixed'}>
+        <React.Fragment/>
         <th><div>ghjghjghjhgjghjghjghjghjghj</div></th>
         <th className={'col-fixed'}>ш2</th>
         <th><table>
