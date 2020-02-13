@@ -113,29 +113,26 @@ class Table extends React.Component {
                 child = Array.of(child);
               }
               return child.map((el, i) => {
-                if ('then' in el) {
-                  el.then((value) => {
-                    el = value;
-                  })
+                if (el !== null) {
+                  if (el.type === 'tr') {
+                    return <FixedRow className={el.type}
+                                     isFixed={el.props.className}
+                                     key={i}
+                                     tableLeftBorder={tableLeftBorder}
+                                     tableTopBorder={tableTopBorder}
+                                     onChangeBorder={onChangeBorder}
+                                     onChangeFixedRowBottom={onChangeFixedRowBottom}
+                                     onFillCellWidth={onFillCellWidth}
+                                     onFillLeftBorderArray={onFillLeftBorderArray}
+                                     isScrolledTop={isScrolledTop}
+                                     scrollLeft={scrollLeft}
+                                     cellsFixedX={cellsFixedX}
+                                     cellsWidth={cellsWidth}>
+                      {el.props.children}
+                    </FixedRow>
+                  }
+                  return el
                 }
-                if (el.type === 'tr') {
-                  return <FixedRow className={el.type}
-                                   isFixed={el.props.className}
-                                   key={i}
-                                   tableLeftBorder={tableLeftBorder}
-                                   tableTopBorder={tableTopBorder}
-                                   onChangeBorder={onChangeBorder}
-                                   onChangeFixedRowBottom={onChangeFixedRowBottom}
-                                   onFillCellWidth={onFillCellWidth}
-                                   onFillLeftBorderArray={onFillLeftBorderArray}
-                                   isScrolledTop={isScrolledTop}
-                                   scrollLeft={scrollLeft}
-                                   cellsFixedX={cellsFixedX}
-                                   cellsWidth={cellsWidth}>
-                    {el.props.children}
-                  </FixedRow>
-                }
-                return el
               })
             }
             return child
@@ -147,25 +144,22 @@ class Table extends React.Component {
                 child = Array.of(child);
               }
               return child.map((el, i) => {
-                if ('then' in el) {
-                  el.then((value) => {
-                    el = value;
-                  })
+                if (el !== null) {
+                  if (el.type === 'tr') {
+                    return <Row className={el.type}
+                                isFixed={el.props.className}
+                                key={i}
+                                tableLeftBorder={tableLeftBorder}
+                                onFillCellWidth={onFillCellWidth}
+                                onFillLeftBorderArray={onFillLeftBorderArray}
+                                cellsWidth={cellsWidth}
+                                cellsFixedX={cellsFixedX}
+                                scrollLeft={scrollLeft}>
+                      {el.props.children}
+                    </Row>
+                  }
+                  return el
                 }
-                if (el.type === 'tr') {
-                  return <Row className={el.type}
-                              isFixed={el.props.className}
-                              key={i}
-                              tableLeftBorder={tableLeftBorder}
-                              onFillCellWidth={onFillCellWidth}
-                              onFillLeftBorderArray={onFillLeftBorderArray}
-                              cellsWidth={cellsWidth}
-                              cellsFixedX={cellsFixedX}
-                              scrollLeft={scrollLeft}>
-                    {el.props.children}
-                  </Row>
-                }
-                return el
               })
             }
             return child
