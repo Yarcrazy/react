@@ -113,6 +113,11 @@ class Table extends React.Component {
                 child = Array.of(child);
               }
               return child.map((el, i) => {
+                if ('then' in el) {
+                  el.then((value) => {
+                    el = value;
+                  })
+                }
                 if (el.type === 'tr') {
                   return <FixedRow className={el.type}
                                    isFixed={el.props.className}
@@ -142,6 +147,11 @@ class Table extends React.Component {
                 child = Array.of(child);
               }
               return child.map((el, i) => {
+                if ('then' in el) {
+                  el.then((value) => {
+                    el = value;
+                  })
+                }
                 if (el.type === 'tr') {
                   return <Row className={el.type}
                               isFixed={el.props.className}
