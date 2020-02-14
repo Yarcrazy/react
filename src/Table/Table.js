@@ -1,6 +1,7 @@
 import React from 'react';
-import FixedRow from "./FixedRow";
 import Row from "./Row";
+import "./table.css";
+import THead from "./THead";
 
 class Table extends React.Component {
 
@@ -79,7 +80,7 @@ class Table extends React.Component {
   render() {
     const rows = [];
     let children = this.props.children;
-    let className = '';
+    const className = 'table';
     this.tableRef = React.createRef();
     let paddingTop = 0;
 
@@ -107,35 +108,21 @@ class Table extends React.Component {
       rows.push(
         children.map((el, i) => {
           if (el.type === 'thead') {
-            let child = el.props.children;
-            if (child !== undefined) {
-              if (!Array.isArray(child)) {
-                child = Array.of(child);
-              }
-              return child.map((el, i) => {
-                if (el !== null) {
-                  if (el.type === 'tr') {
-                    return <FixedRow className={el.type}
-                                     isFixed={el.props.className}
-                                     key={i}
-                                     tableLeftBorder={tableLeftBorder}
-                                     tableTopBorder={tableTopBorder}
-                                     onChangeBorder={onChangeBorder}
-                                     onChangeFixedRowBottom={onChangeFixedRowBottom}
-                                     onFillCellWidth={onFillCellWidth}
-                                     onFillLeftBorderArray={onFillLeftBorderArray}
-                                     isScrolledTop={isScrolledTop}
-                                     scrollLeft={scrollLeft}
-                                     cellsFixedX={cellsFixedX}
-                                     cellsWidth={cellsWidth}>
-                      {el.props.children}
-                    </FixedRow>
-                  }
-                  return el
-                }
-              })
-            }
-            return child
+            return <THead className={el.type}
+                          isFixed={el.props.className}
+                          key={i}
+                          tableLeftBorder={tableLeftBorder}
+                          tableTopBorder={tableTopBorder}
+                          onChangeBorder={onChangeBorder}
+                          onChangeFixedRowBottom={onChangeFixedRowBottom}
+                          onFillCellWidth={onFillCellWidth}
+                          onFillLeftBorderArray={onFillLeftBorderArray}
+                          scrollLeft={scrollLeft}
+                          isScrolledTop={isScrolledTop}
+                          cellsFixedX={cellsFixedX}
+                          cellsWidth={cellsWidth}>
+              {el.props.children}
+            </THead>
           }
           if ((el.type === 'tbody') || (el.type === 'tfoot')) {
             let child = el.props.children;
@@ -169,7 +156,6 @@ class Table extends React.Component {
       );
     }
 
-    className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
     return (
       <div className={className} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
         {rows}

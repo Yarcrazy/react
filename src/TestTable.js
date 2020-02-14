@@ -3,10 +3,10 @@ import Table from "./Table/Table";
 
 export default function TestTable() {
   return (
-    <Table className={'table'}>
-      <thead>
+    <Table>
+      <thead className={'fixed'}>
       <React.Fragment/>
-      <tr className={'row-fixed'}>
+      <tr>
         <React.Fragment/>
         <th><div>ghjghjghjhgjghjghjghjghjghj</div></th>
         <th className={'col-fixed'}>ш2</th>

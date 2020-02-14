@@ -29,22 +29,22 @@ code {
   background-color: red;
   position: relative;
 }
-.row-fixed {
+.fixed {
   background-color: #1616ff;
   z-index: 1;
   overflow-x: hidden;
 }
-.row-fixed::-webkit-scrollbar {
+.fixed::-webkit-scrollbar {
   display: none;
 }
 .tr {
   display: flex;
   position: relative;
 }
-.fixed {
+.absolute {
   position: absolute;
 }
 .tbody {
   position: relative;
 }
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=table.css.map */
