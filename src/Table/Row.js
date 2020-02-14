@@ -15,7 +15,9 @@ class Row extends React.Component {
     let scrollLeft = 0;
     let tableLeftBorder = 0;
 
+    // j нужна для нумерования фиксированных столбцов, i - для всех столбцов
     let j = -1;
+    let z = -1;
 
     if (children !== undefined) {
       if (!Array.isArray(children)) {
@@ -24,6 +26,7 @@ class Row extends React.Component {
       rows.push(
         children.map((el, i) => {
             if ((el.type === 'th') || (el.type === 'td')) {
+              z++;
               if (el.props.className === 'col-fixed') {
                 scrollLeft = this.props.scrollLeft;
                 tableLeftBorder = this.props.tableLeftBorder;
@@ -31,8 +34,8 @@ class Row extends React.Component {
               }
               return <Cell className={el.type}
                            isFixed={el.props.className}
-                           key={i}
-                           i={i}
+                           key={z}
+                           i={z}
                            num={j}
                            tableLeftBorder={tableLeftBorder}
                            cellsWidth={cellsWidth}

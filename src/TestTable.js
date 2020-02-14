@@ -28,6 +28,28 @@ export default function TestTable() {
         <th>ш8</th>
         <th>ш9</th>
       </tr>
+      <tr>
+        <React.Fragment/>
+        <th><div>ghjghjghjhgjghjghjghjghjghj</div></th>
+        <th className={'col-fixed'}>ш2</th>
+        <th><table>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+          <tr><td>a</td><td>s</td></tr>
+        </table></th>
+        <th className={'col-fixed'}>ш4</th>
+        <th>ш5</th>
+        <th className={'col-fixed'}>ш6</th>
+        <th>ш7</th>
+        <th>ш8</th>
+        <th>ш9</th>
+      </tr>
       </thead>
       <tbody>
       <tr>

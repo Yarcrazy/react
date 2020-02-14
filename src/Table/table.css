@@ -39,7 +39,6 @@ code {
 }
 .tr {
   display: flex;
-  position: relative;
 }
 .absolute {
   position: absolute;
