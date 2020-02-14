@@ -45,6 +45,7 @@ class FixedRow extends React.Component {
                            onFillLeftBorderArray={onFillLeftBorderArray}
                            cellsWidth={cellsWidth}
                            cellsFixedX={cellsFixedX}
+                           colSpan={el.props.colSpan}
                            scrollLeft={scrollLeft}>
                 {el.props.children}
               </Cell>

@@ -8,7 +8,8 @@ export default function TestTable() {
       <React.Fragment/>
       <tr>
         <React.Fragment/>
-        <th><div>ghjghjghjhgjghjghjghjghjghj</div></th>
+        <th colSpan={2}><div>ghjghjghjhgjghjghjghjghjghj</div></th>
+        <th>ш2</th>
         <th className={'col-fixed'}>ш2</th>
         <th><table>
           <tr><td>a</td><td>s</td></tr>

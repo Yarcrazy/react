@@ -65,7 +65,7 @@ class Table extends React.Component {
     })
   );
 
-  handleFillCellWidth = (cellWidth, i) => (
+  handleFillCellWidth = (cellWidth, i, colSpan) => (
     this.setState((state) => {
       let cellsWidth = state.cellsWidth;
       if (cellsWidth[i] === undefined) {

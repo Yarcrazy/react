@@ -8,15 +8,21 @@ class Cell extends React.Component {
     super(props);
     this.state = {
       fixFlag: false,
+      colSpan: 1,
     }
   }
 
   componentDidMount() {
     const rect = this.ref.current.getBoundingClientRect();
+    const colSpan = this.props.colSpan ? this.props.colSpan : this.state.colSpan;
     if (this.props.isFixed === 'col-fixed') {
       this.props.onFillLeftBorderArray(rect.x, this.props.num);
     }
-    this.props.onFillCellWidth(rect.width, this.props.i);
+    // если есть аргумент colspan и это натуральное число
+    if ((colSpan > 0) && (colSpan % 1 === 0)) {
+      this.setState({colSpan: colSpan});
+    }
+    this.props.onFillCellWidth(rect.width, this.props.i, colSpan);
   }
 
   render() {
