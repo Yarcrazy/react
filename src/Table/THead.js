@@ -70,8 +70,8 @@ class THead extends React.Component {
                 {el.props.children}
               </FixedRow>
             }
-            return el
           }
+          return el
         })
       );
     }

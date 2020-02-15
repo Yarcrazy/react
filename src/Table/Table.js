@@ -1,7 +1,7 @@
 import React from 'react';
-import Row from "./Row";
 import "./table.css";
 import THead from "./THead";
+import TBody from "./TBody";
 
 class Table extends React.Component {
 
@@ -125,31 +125,17 @@ class Table extends React.Component {
             </THead>
           }
           if ((el.type === 'tbody') || (el.type === 'tfoot')) {
-            let child = el.props.children;
-            if (child !== undefined) {
-              if (!Array.isArray(child)) {
-                child = Array.of(child);
-              }
-              return child.map((el, i) => {
-                if (el !== null) {
-                  if (el.type === 'tr') {
-                    return <Row className={el.type}
-                                isFixed={el.props.className}
-                                key={i}
-                                tableLeftBorder={tableLeftBorder}
-                                onFillCellWidth={onFillCellWidth}
-                                onFillLeftBorderArray={onFillLeftBorderArray}
-                                cellsWidth={cellsWidth}
-                                cellsFixedX={cellsFixedX}
-                                scrollLeft={scrollLeft}>
-                      {el.props.children}
-                    </Row>
-                  }
-                  return el
-                }
-              })
-            }
-            return child
+            return <TBody className={el.type}
+                        isFixed={el.props.className}
+                        key={i}
+                        tableLeftBorder={tableLeftBorder}
+                        onFillCellWidth={onFillCellWidth}
+                        onFillLeftBorderArray={onFillLeftBorderArray}
+                        cellsWidth={cellsWidth}
+                        cellsFixedX={cellsFixedX}
+                        scrollLeft={scrollLeft}>
+              {el.props.children}
+            </TBody>
           }
           return el
         })

@@ -10,7 +10,10 @@ class TBody extends React.Component {
 
     const scrollLeft = this.props.scrollLeft;
     const tableLeftBorder = this.props.tableLeftBorder;
-    const top = this.props.fixedRowBottom ? this.props.fixedRowBottom : 0;
+    const cellsFixedX = this.props.cellsFixedX;
+    const cellsWidth = this.props.cellsWidth;
+    const onFillCellWidth = this.props.onFillCellWidth;
+    const onFillLeftBorderArray = this.props.onFillLeftBorderArray;
 
     // const tBody = document.querySelector('.tBody');
     // if (tBody) {
@@ -20,10 +23,14 @@ class TBody extends React.Component {
     rows.push(
       children.map((el, i) => {
         return <Row className={el.type}
-             isFixed={el.props.className}
-             key={i}
-             tableLeftBorder={tableLeftBorder}
-             scrollLeft={scrollLeft}>
+                    isFixed={el.props.className}
+                    key={i}
+                    tableLeftBorder={tableLeftBorder}
+                    onFillCellWidth={onFillCellWidth}
+                    onFillLeftBorderArray={onFillLeftBorderArray}
+                    cellsWidth={cellsWidth}
+                    cellsFixedX={cellsFixedX}
+                    scrollLeft={scrollLeft}>
           {el.props.children}
         </Row>
       })
@@ -32,7 +39,9 @@ class TBody extends React.Component {
     className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
 
     return (
+      <div className={className}>
         {rows}
+      </div>
     );
   }
 }
