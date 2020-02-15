@@ -26,11 +26,9 @@ code {
   box-sizing: border-box;
 }
 .col-fixed {
-  background-color: red;
   position: relative;
 }
 .fixed {
-  background-color: #1616ff;
   z-index: 1;
   overflow-x: hidden;
 }
@@ -42,8 +40,5 @@ code {
 }
 .absolute {
   position: absolute;
-}
-.tbody {
-  position: relative;
 }
 /*# sourceMappingURL=table.css.map */
