@@ -19,6 +19,16 @@ class Cell extends React.Component {
     this.props.onFillCellWidth(rect.width, this.props.i);
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.children !== this.props.children) {
+      const rect = this.ref.current.getBoundingClientRect();
+      // if (this.props.isFixed === 'col-fixed') {
+      //   this.props.onFillLeftBorderArray(rect.x, this.props.num);
+      // }
+      this.props.onFillCellWidth(rect.width, this.props.i);
+    }
+  }
+
   render() {
     this.ref = React.createRef();
     let className = this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
@@ -47,7 +57,7 @@ class Cell extends React.Component {
       }
     }
 
-    return <div className={className} style={{left: cellLeft, minWidth: width}} ref={this.ref}>
+    return <div className={className} style={{left: cellLeft, width: width}} ref={this.ref}>
       {this.props.children}
     </div>
   }
