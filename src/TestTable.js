@@ -118,6 +118,7 @@ export default function TestTable() {
       </tr>
       </thead>
       <tbody>
+      {null}
       <tr>
         <td>1</td>
         <td className={'col-fixed'}>2</td>

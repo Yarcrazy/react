@@ -5,7 +5,7 @@ class TBody extends React.Component {
 
   render() {
     const rows = [];
-    const children = this.props.children;
+    let children = this.props.children;
     let className = '';
 
     const scrollLeft = this.props.scrollLeft;
@@ -19,22 +19,31 @@ class TBody extends React.Component {
     // if (tBody) {
     //   tBody.scrollLeft = this.state.scrollLeft;
     // }
-
-    rows.push(
-      children.map((el, i) => {
-        return <Row className={el.type}
-                    isFixed={el.props.className}
-                    key={i}
-                    tableLeftBorder={tableLeftBorder}
-                    onFillCellWidth={onFillCellWidth}
-                    onFillLeftBorderArray={onFillLeftBorderArray}
-                    cellsWidth={cellsWidth}
-                    cellsFixedX={cellsFixedX}
-                    scrollLeft={scrollLeft}>
-          {el.props.children}
-        </Row>
-      })
-    );
+    if (children !== undefined) {
+      if (!Array.isArray(children)) {
+        children = Array.of(children);
+      }
+      rows.push(
+        children.map((el, i) => {
+          if (el !== null) {
+            if (el.type === 'tr') {
+              return <Row className={el.type}
+                          isFixed={el.props.className}
+                          key={i}
+                          tableLeftBorder={tableLeftBorder}
+                          onFillCellWidth={onFillCellWidth}
+                          onFillLeftBorderArray={onFillLeftBorderArray}
+                          cellsWidth={cellsWidth}
+                          cellsFixedX={cellsFixedX}
+                          scrollLeft={scrollLeft}>
+                {el.props.children}
+              </Row>
+            }
+          }
+          return el
+        })
+      );
+    }
 
     className += this.props.className + ' ' + (this.props.isFixed ? this.props.isFixed : '');
 
