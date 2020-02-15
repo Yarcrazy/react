@@ -25,6 +25,7 @@ class Row extends React.Component {
       }
       rows.push(
         children.map((el, i) => {
+          if (el !== null) {
             if ((el.type === 'th') || (el.type === 'td')) {
               z++;
               if (el.props.className === 'col-fixed') {
@@ -48,7 +49,7 @@ class Row extends React.Component {
             }
             return el
           }
-        )
+        })
       );
     }
 

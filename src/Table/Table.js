@@ -107,37 +107,39 @@ class Table extends React.Component {
 
       rows.push(
         children.map((el, i) => {
-          if (el.type === 'thead') {
-            return <THead className={el.type}
-                          isFixed={el.props.className}
-                          key={i}
-                          tableLeftBorder={tableLeftBorder}
-                          tableTopBorder={tableTopBorder}
-                          onChangeBorder={onChangeBorder}
-                          onChangeFixedRowBottom={onChangeFixedRowBottom}
-                          onFillCellWidth={onFillCellWidth}
-                          onFillLeftBorderArray={onFillLeftBorderArray}
-                          scrollLeft={scrollLeft}
-                          isScrolledTop={isScrolledTop}
-                          cellsFixedX={cellsFixedX}
-                          cellsWidth={cellsWidth}>
-              {el.props.children}
-            </THead>
+          if (el !== null) {
+            if (el.type === 'thead') {
+              return <THead className={el.type}
+                            isFixed={el.props.className}
+                            key={i}
+                            tableLeftBorder={tableLeftBorder}
+                            tableTopBorder={tableTopBorder}
+                            onChangeBorder={onChangeBorder}
+                            onChangeFixedRowBottom={onChangeFixedRowBottom}
+                            onFillCellWidth={onFillCellWidth}
+                            onFillLeftBorderArray={onFillLeftBorderArray}
+                            scrollLeft={scrollLeft}
+                            isScrolledTop={isScrolledTop}
+                            cellsFixedX={cellsFixedX}
+                            cellsWidth={cellsWidth}>
+                {el.props.children}
+              </THead>
+            }
+            if ((el.type === 'tbody') || (el.type === 'tfoot')) {
+              return <TBody className={el.type}
+                            isFixed={el.props.className}
+                            key={i}
+                            tableLeftBorder={tableLeftBorder}
+                            onFillCellWidth={onFillCellWidth}
+                            onFillLeftBorderArray={onFillLeftBorderArray}
+                            cellsWidth={cellsWidth}
+                            cellsFixedX={cellsFixedX}
+                            scrollLeft={scrollLeft}>
+                {el.props.children}
+              </TBody>
+            }
+            return el
           }
-          if ((el.type === 'tbody') || (el.type === 'tfoot')) {
-            return <TBody className={el.type}
-                        isFixed={el.props.className}
-                        key={i}
-                        tableLeftBorder={tableLeftBorder}
-                        onFillCellWidth={onFillCellWidth}
-                        onFillLeftBorderArray={onFillLeftBorderArray}
-                        cellsWidth={cellsWidth}
-                        cellsFixedX={cellsFixedX}
-                        scrollLeft={scrollLeft}>
-              {el.props.children}
-            </TBody>
-          }
-          return el
         })
       );
     }
