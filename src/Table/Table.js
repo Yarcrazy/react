@@ -1,7 +1,5 @@
 import React from 'react';
 import "./table.css";
-import THead from "./THead";
-import TBody from "./TBody";
 
 class Table extends React.Component {
 
@@ -78,9 +76,9 @@ class Table extends React.Component {
   );
 
   render() {
-    const rows = [];
-    let children = this.props.children;
-    const className = 'table';
+    const defaultValue = {};
+    const TableContext = React.createContext(defaultValue);
+
     this.tableRef = React.createRef();
     let paddingTop = 0;
 
@@ -99,55 +97,20 @@ class Table extends React.Component {
       paddingTop = this.state.fixedRowBottom;
     }
 
-    if (children !== undefined) {
-      // если внутри не массив, то делаем массивом
-      if (!Array.isArray(children)) {
-        children = Array.of(children);
-      }
-
-      rows.push(
-        children.map((el, i) => {
-          if (el !== null) {
-            if (el.type === 'thead') {
-              return <THead className={el.type}
-                            isFixed={el.props.className}
-                            key={i}
-                            tableLeftBorder={tableLeftBorder}
-                            tableTopBorder={tableTopBorder}
-                            onChangeBorder={onChangeBorder}
-                            onChangeFixedRowBottom={onChangeFixedRowBottom}
-                            onFillCellWidth={onFillCellWidth}
-                            onFillLeftBorderArray={onFillLeftBorderArray}
-                            scrollLeft={scrollLeft}
-                            isScrolledTop={isScrolledTop}
-                            cellsFixedX={cellsFixedX}
-                            cellsWidth={cellsWidth}>
-                {el.props.children}
-              </THead>
-            }
-            if ((el.type === 'tbody') || (el.type === 'tfoot')) {
-              return <TBody className={el.type}
-                            isFixed={el.props.className}
-                            key={i}
-                            tableLeftBorder={tableLeftBorder}
-                            onFillCellWidth={onFillCellWidth}
-                            onFillLeftBorderArray={onFillLeftBorderArray}
-                            cellsWidth={cellsWidth}
-                            cellsFixedX={cellsFixedX}
-                            scrollLeft={scrollLeft}>
-                {el.props.children}
-              </TBody>
-            }
-            return el
-          }
-        })
-      );
-    }
-
     return (
-      <div className={className} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
-        {rows}
-      </div>
+      <TableContext.Provider tableLeftBorder={tableLeftBorder}
+                             tableTopBorder={tableTopBorder}
+                             onChangeBorder={onChangeBorder}
+                             onChangeFixedRowBottom={onChangeFixedRowBottom}
+                             onFillCellWidth={onFillCellWidth}
+                             onFillLeftBorderArray={onFillLeftBorderArray}
+                             scrollLeft={scrollLeft}
+                             isScrolledTop={isScrolledTop}
+                             cellsFixedX={cellsFixedX}
+                             cellsWidth={cellsWidth}>
+        <div className={'table'} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
+        </div>
+      </TableContext.Provider>
     );
   }
 }
