@@ -26,21 +26,15 @@ class Row extends React.Component {
       rows.push(
         children.map((el, i) => {
           if (el !== null) {
-            let type = el.type;
-            let className = el.props.className;
-            if (typeof type === 'function') {
-              type = type().type;
-              className = el.type().props.className;
-            }
-            if ((type === 'th') || (type === 'td')) {
+            if ((el.type === 'th') || (el.type === 'td')) {
               z++;
-              if (className === 'col-fixed') {
+              if (el.props.className === 'col-fixed') {
                 scrollLeft = this.props.scrollLeft;
                 tableLeftBorder = this.props.tableLeftBorder;
                 j++;
               }
-              return <Cell className={type}
-                           isFixed={className}
+              return <Cell className={el.type}
+                           isFixed={el.props.className}
                            key={z}
                            i={z}
                            num={j}
@@ -53,8 +47,8 @@ class Row extends React.Component {
                 {el.props.children}
               </Cell>
             }
+            return el
           }
-          return el
         })
       );
     }

@@ -80,6 +80,7 @@ class Table extends React.Component {
   render() {
     const rows = [];
     let children = this.props.children;
+    const className = 'table';
     this.tableRef = React.createRef();
     let paddingTop = 0;
 
@@ -107,15 +108,9 @@ class Table extends React.Component {
       rows.push(
         children.map((el, i) => {
           if (el !== null) {
-            let type = el.type;
-            let className = el.props.className;
-            if (typeof type === 'function') {
-              type = type().type;
-              className = el.type().props.className;
-            }
-            if (type === 'thead') {
-              return <THead className={type}
-                            isFixed={className}
+            if (el.type === 'thead') {
+              return <THead className={el.type}
+                            isFixed={el.props.className}
                             key={i}
                             tableLeftBorder={tableLeftBorder}
                             tableTopBorder={tableTopBorder}
@@ -130,9 +125,9 @@ class Table extends React.Component {
                 {el.props.children}
               </THead>
             }
-            if ((type === 'tbody') || (type === 'tfoot')) {
-              return <TBody className={type}
-                            isFixed={className}
+            if ((el.type === 'tbody') || (el.type === 'tfoot')) {
+              return <TBody className={el.type}
+                            isFixed={el.props.className}
                             key={i}
                             tableLeftBorder={tableLeftBorder}
                             onFillCellWidth={onFillCellWidth}
@@ -143,14 +138,14 @@ class Table extends React.Component {
                 {el.props.children}
               </TBody>
             }
+            return el
           }
-          return el
         })
       );
     }
 
     return (
-      <div className={'table'} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
+      <div className={className} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
         {rows}
       </div>
     );

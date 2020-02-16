@@ -26,15 +26,9 @@ class TBody extends React.Component {
       rows.push(
         children.map((el, i) => {
           if (el !== null) {
-            let type = el.type;
-            let className = el.props.className;
-            if (typeof type === 'function') {
-              type = type().type;
-              className = el.type().props.className;
-            }
-            if (type === 'tr') {
-              return <Row className={type}
-                          isFixed={className}
+            if (el.type === 'tr') {
+              return <Row className={el.type}
+                          isFixed={el.props.className}
                           key={i}
                           tableLeftBorder={tableLeftBorder}
                           onFillCellWidth={onFillCellWidth}
