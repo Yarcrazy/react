@@ -1,5 +1,6 @@
 import React from 'react';
 import "./table.css";
+import TableContext from "./TableContext";
 
 class Table extends React.Component {
 
@@ -76,39 +77,30 @@ class Table extends React.Component {
   );
 
   render() {
-    const defaultValue = {};
-    const TableContext = React.createContext(defaultValue);
-
     this.tableRef = React.createRef();
     let paddingTop = 0;
 
-    const scrollLeft = this.state.scrollLeft;
-    const cellsWidth = this.state.cellsWidth;
-    const cellsFixedX = this.state.cellsFixedX;
-    const tableLeftBorder = this.state.tableLeftBorder;
-    const tableTopBorder = this.state.tableTopBorder;
-    const isScrolledTop = this.state.isScrolledTop;
-    const onChangeBorder = this.handleChangeBorder;
-    const onChangeFixedRowBottom = this.handleChangeFixedRowBottom;
-    const onFillCellWidth = this.handleFillCellWidth;
-    const onFillLeftBorderArray = this.handleFillLeftBorderArray;
+    const value = {
+      scrollLeft: this.state.scrollLeft,
+      cellsWidth: this.state.cellsWidth,
+      cellsFixedX: this.state.cellsFixedX,
+      tableLeftBorder: this.state.tableLeftBorder,
+      tableTopBorder: this.state.tableTopBorder,
+      isScrolledTop: this.state.isScrolledTop,
+      onChangeBorder: this.handleChangeBorder,
+      onChangeFixedRowBottom: this.handleChangeFixedRowBottom,
+      onFillCellWidth: this.handleFillCellWidth,
+      onFillLeftBorderArray: this.handleFillLeftBorderArray,
+    };
 
-    if (isScrolledTop) {
+    if (value.isScrolledTop) {
       paddingTop = this.state.fixedRowBottom;
     }
 
     return (
-      <TableContext.Provider tableLeftBorder={tableLeftBorder}
-                             tableTopBorder={tableTopBorder}
-                             onChangeBorder={onChangeBorder}
-                             onChangeFixedRowBottom={onChangeFixedRowBottom}
-                             onFillCellWidth={onFillCellWidth}
-                             onFillLeftBorderArray={onFillLeftBorderArray}
-                             scrollLeft={scrollLeft}
-                             isScrolledTop={isScrolledTop}
-                             cellsFixedX={cellsFixedX}
-                             cellsWidth={cellsWidth}>
+      <TableContext.Provider value={value}>
         <div className={'table'} ref={this.tableRef} onScroll={this.handleScroll} style={{paddingTop: paddingTop}}>
+          {this.props.children}
         </div>
       </TableContext.Provider>
     );
