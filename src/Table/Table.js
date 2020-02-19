@@ -1,6 +1,6 @@
 import React from 'react';
 import "./table.css";
-import TableContext from "./TableContext";
+import {TableContext} from "./Context";
 
 class Table extends React.Component {
 

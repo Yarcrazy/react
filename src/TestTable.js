@@ -10,24 +10,24 @@ export default function TestTable() {
     <Table>
       <THead className={'fixed'}>
         <Tr>
-          <Td>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
         </Tr>
       </THead>
       <TBody>
         <Tr>
-          <Td>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
-          <Td>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
-          <Td>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
         </Tr>

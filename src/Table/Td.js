@@ -1,5 +1,5 @@
 import React from 'react';
-import TableContext from "./TableContext";
+import {TableContext} from "./Context";
 
 class Td extends React.Component {
 
