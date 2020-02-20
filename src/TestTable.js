@@ -13,6 +13,12 @@ export default function TestTable() {
           <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
         </Tr>
       </THead>
       <TBody>
@@ -20,15 +26,66 @@ export default function TestTable() {
           <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
           <Td>3</Td>
-        </Tr>
-        <Tr>
-          <Td className={'col-fixed'}>1</Td>
-          <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+        </Tr>
+        <Tr>
+          <Td className={'col-fixed'}>1</Td>
+          <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+        </Tr>
+        <Tr>
+          <Td className={'col-fixed'}>1</Td>
+          <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+        </Tr>
+        <Tr>
+          <Td className={'col-fixed'}>1</Td>
+          <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+        </Tr>
+        <Tr>
+          <Td className={'col-fixed'}>1</Td>
+          <Td>2</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
+          <Td>3</Td>
           <Td>3</Td>
         </Tr>
       </TBody>

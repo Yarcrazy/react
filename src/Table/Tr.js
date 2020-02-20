@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {RowContext} from "./Context";
-import {useState} from "react";
 
 function Tr(props) {
-  const [rowNumber, setRowNumber] = useState(0);
   const children = props.children;
   const className = 'tr ' + (props.className ? props.className : '');
   //  setRowNumber((prevRowNumber) => prevRowNumber + 1);
-  const value = {rowNumber: rowNumber,};
+  const [colNumber, setColNumber] = useState(0);
+  const [fixedColNumber, setFixedColNumber] = useState(0);
+  const value = {colNumber: colNumber,
+    setColNumber: setColNumber,
+    fixedColNumber: fixedColNumber,
+    setFixedColNumber: setFixedColNumber,
+  };
 
   return (
     <RowContext.Provider value={value}>

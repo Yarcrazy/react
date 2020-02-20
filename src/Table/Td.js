@@ -1,24 +1,7 @@
-import React from 'react';
-import {TableContext} from "./Context";
+import React, {useState, useRef, useContext, useEffect} from 'react';
+import {RowContext, TableContext} from "./Context";
 
-class Td extends React.Component {
-
-  ref;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      fixFlag: false,
-    }
-  }
-
-  componentDidMount() {
-    const rect = this.ref.current.getBoundingClientRect();
-    if (this.props.className === 'col-fixed') {
-      this.context.onFillLeftBorderArray(rect.x, this.props.num);
-    }
-    this.context.onFillCellWidth(rect.width, this.props.i);
-  }
+function Td(props) {
 
   // componentDidUpdate(prevProps, prevState, snapshot) {
   //   if (prevProps.children !== this.props.children) {
@@ -30,41 +13,60 @@ class Td extends React.Component {
   //   }
   // }
 
-  render() {
-    this.ref = React.createRef();
-    const children = this.props.children;
-    const className = 'td ' + (this.props.className ? this.props.className : '');
-    let cellLeft = 0;
-    let width = this.context.cellsWidth[this.props.i];
-    //const num = this.props.num;
+  const ref = useRef(null);
+  const [fixFlag, setFixFlag] = useState(false);
+  const [col, setCol] = useState(0);
+  const [fixedCol, setFixedCol] = useState(0);
+  const rowContext = useContext(RowContext);
+  const tableContext = useContext(TableContext);
 
-    // if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
-    //
-    //   if ((this.props.scrollLeft >= this.props.cellsFixedX[num] - this.props.tableLeftBorder[num])) {
-    //     if (!this.state.fixFlag) {
-    //       this.setState({fixFlag: true});
-    //       if (this.props.onChangeBorder) {
-    //         this.props.onChangeBorder(this.props.tableLeftBorder[num] + width);
-    //       }
-    //     }
-    //   } else {
-    //     if (this.state.fixFlag) {
-    //       this.setState({fixFlag: false});
-    //       cellLeft = 0;
-    //     }
-    //   }
-    //
-    //   if (this.state.fixFlag) {
-    //     cellLeft = this.props.scrollLeft - this.props.cellsFixedX[num] + this.props.tableLeftBorder[num];
-    //   }
-    // }
+  useEffect(() => {
+    setCol(rowContext.colNumber + 1);
+    if (props.className === 'col-fixed') {
+      setFixedCol(rowContext.fixedColNumber + 1);
+      rowContext.setFixedColNumber(rowContext.fixedColNumber + 1);
+    }
+    rowContext.setColNumber(rowContext.colNumber + 1);
+  }, props);
 
-    return <div className={className} style={{left: cellLeft, width: width}} ref={this.ref}>
-      {children}
-    </div>
-  }
+
+  useEffect(() => {
+    const rect = ref.current.getBoundingClientRect();
+    if (props.className === 'col-fixed') {
+      tableContext.onFillLeftBorderArray(rect.x, fixedCol);
+    }
+    tableContext.onFillCellWidth(rect.width, col);
+  }, props);
+
+  const children = props.children;
+  const className = 'td ' + (props.className ? props.className : '');
+  let cellLeft = 0;
+  let width = tableContext.cellsWidth[col];
+
+  // if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
+  //
+  //   if ((this.props.scrollLeft >= this.props.cellsFixedX[num] - this.props.tableLeftBorder[num])) {
+  //     if (!this.state.fixFlag) {
+  //       this.setState({fixFlag: true});
+  //       if (this.props.onChangeBorder) {
+  //         this.props.onChangeBorder(this.props.tableLeftBorder[num] + width);
+  //       }
+  //     }
+  //   } else {
+  //     if (this.state.fixFlag) {
+  //       this.setState({fixFlag: false});
+  //       cellLeft = 0;
+  //     }
+  //   }
+  //
+  //   if (this.state.fixFlag) {
+  //     cellLeft = this.props.scrollLeft - this.props.cellsFixedX[num] + this.props.tableLeftBorder[num];
+  //   }
+  // }
+
+  return <div className={className} style={{left: cellLeft, width: width}} ref={ref}>
+    {children}
+  </div>
 }
-
-Td.contextType = TableContext;
 
 export default Td;
