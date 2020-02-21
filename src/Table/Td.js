@@ -24,10 +24,10 @@ function Td(props) {
     setCol(rowContext.colNumber + 1);
     if (props.className === 'col-fixed') {
       setFixedCol(rowContext.fixedColNumber + 1);
-      rowContext.setFixedColNumber(rowContext.fixedColNumber + 1);
+      rowContext.setFixedColNumber(prev => prev + 1);
     }
-    rowContext.setColNumber(rowContext.colNumber + 1);
-  }, props);
+    rowContext.setColNumber(prev => prev + 1);
+  }, []);
 
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Td(props) {
       tableContext.onFillLeftBorderArray(rect.x, fixedCol);
     }
     tableContext.onFillCellWidth(rect.width, col);
-  }, props);
+  }, [props.children]);
 
   const children = props.children;
   const className = 'td ' + (props.className ? props.className : '');
