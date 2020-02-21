@@ -20,15 +20,15 @@ function Td(props) {
   const rowContext = useContext(RowContext);
   const tableContext = useContext(TableContext);
 
+  // данный хук выполняется один раз для нумерования колонок всех и фиксированных()
   useEffect(() => {
-    setCol(rowContext.colNumber + 1);
+    setCol(rowContext.colNumber);
+    rowContext.colNumber++;
     if (props.className === 'col-fixed') {
-      setFixedCol(rowContext.fixedColNumber + 1);
-      rowContext.setFixedColNumber(prev => prev + 1);
+      setFixedCol(rowContext.fixedColNumber);
+      rowContext.fixedColNumber++;
     }
-    rowContext.setColNumber(prev => prev + 1);
   }, []);
-
 
   useEffect(() => {
     const rect = ref.current.getBoundingClientRect();
@@ -36,7 +36,7 @@ function Td(props) {
       tableContext.onFillLeftBorderArray(rect.x, fixedCol);
     }
     tableContext.onFillCellWidth(rect.width, col);
-  }, [props.children]);
+  }, [col]);
 
   const children = props.children;
   const className = 'td ' + (props.className ? props.className : '');
