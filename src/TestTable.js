@@ -11,11 +11,8 @@ export default function TestTable() {
       <THead className={'fixed'}>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
@@ -24,66 +21,48 @@ export default function TestTable() {
       <TBody>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
+          <Td>3sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf</Td>
           <Td>3</Td>
           <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
+        </Tr>
+        <Tr>
+          <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
+          <Td>2</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
+          <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
         </Tr>
         <Tr>
           <Td className={'col-fixed'}>1</Td>
-          <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-        </Tr>
-        <Tr>
           <Td className={'col-fixed'}>1</Td>
           <Td>2</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
-          <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
           <Td>3</Td>
