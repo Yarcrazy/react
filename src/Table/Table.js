@@ -52,29 +52,33 @@ class Table extends React.Component {
     this.setState({fixedRowBottom: fixedRowBottom});
   };
 
-  handleFillLeftBorderArray = (cellX, i) => (
-    this.setState((state) => {
-      let cellsFixedX = state.cellsFixedX;
-      if (cellsFixedX[i] === undefined) {
-        cellsFixedX.push(cellX);
-      } else if (cellX > cellsFixedX[i]) {
-        cellsFixedX[i] = cellX;
-      }
-      return {cellsFixedX: cellsFixedX}
-    })
-  );
+  handleFillLeftBorderArray = (cellX, i) => {
+    if (i >= 0) {
+      this.setState((state) => {
+        let cellsFixedX = state.cellsFixedX;
+        if (cellsFixedX[i] === undefined) {
+          cellsFixedX.push(cellX);
+        } else if (cellX > cellsFixedX[i]) {
+          cellsFixedX[i] = cellX;
+        }
+        return {cellsFixedX: cellsFixedX}
+      })
+    }
+  };
 
-  handleFillCellWidth = (cellWidth, i) => (
-    this.setState((state) => {
-      let cellsWidth = state.cellsWidth;
-      if (cellsWidth[i] === undefined) {
-        cellsWidth.push(cellWidth);
-      } else if (cellWidth > cellsWidth[i]) {
-        cellsWidth[i] = cellWidth;
-      }
-      return {cellsWidth: cellsWidth}
-    })
-  );
+  handleFillCellWidth = (cellWidth, i) => {
+    if (i >= 0) {
+      this.setState((state) => {
+        let cellsWidth = state.cellsWidth;
+        if (cellsWidth[i] === undefined) {
+          cellsWidth.push(cellWidth);
+        } else if (cellWidth > cellsWidth[i]) {
+          cellsWidth[i] = cellWidth;
+        }
+        return {cellsWidth: cellsWidth}
+      })
+    }
+  };
 
   render() {
     this.tableRef = React.createRef();

@@ -15,8 +15,8 @@ function Td(props) {
 
   const ref = useRef(null);
   const [fixFlag, setFixFlag] = useState(false);
-  const [col, setCol] = useState(0);
-  const [fixedCol, setFixedCol] = useState(0);
+  const [col, setCol] = useState(-1);
+  const [fixedCol, setFixedCol] = useState(-1);
   const rowContext = useContext(RowContext);
   const tableContext = useContext(TableContext);
 
@@ -37,6 +37,26 @@ function Td(props) {
     }
     tableContext.onFillCellWidth(rect.width, col);
   }, [col]);
+
+  useEffect(() => {
+    if (props.classname === 'col-fixed') {
+      if (tableContext.scrollLeft >= tableContext.cellFixedX[fixedCol] - tableContext.tableLeftBorder[fixedCol]) {
+        if (!fixFlag) {
+          setFixFlag(true);
+          tableContext.onChangeBorder(tableContext.tableLeftBorder[fixedCol] + width);
+        }
+      } else {
+        if (fixFlag) {
+          setFixFlag(true);
+          cellLeft = 0;
+        }
+      }
+
+      if (fixFlag) {
+        cellLeft = tableContext.scrollLeft - tableContext.cellFixedX[fixedCol] + tableContext.tableLeftBorder[fixedCol];
+      }
+    }
+  },[tableContext.scrollLeft]);
 
   const children = props.children;
   const className = 'td ' + (props.className ? props.className : '');
