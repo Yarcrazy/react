@@ -10,6 +10,9 @@ function Td(props) {
   const [cellLeft, setCellLeft] = useState(0);
   const rowContext = useContext(RowContext);
   const tableContext = useContext(TableContext);
+  const children = props.children;
+  const className = 'td ' + (props.className ? props.className : '');
+  let width = tableContext.cellsWidth[col];
 
   // данный хук выполняется один раз для нумерования колонок всех и фиксированных
   useEffect(() => {
@@ -46,31 +49,6 @@ function Td(props) {
       }
     }
   },[tableContext.scrollLeft]);
-
-  const children = props.children;
-  const className = 'td ' + (props.className ? props.className : '');
-  let width = tableContext.cellsWidth[col];
-
-  // if ((this.props.tableLeftBorder) && (this.props.isFixed === 'col-fixed')) {
-  //
-  //   if ((this.props.scrollLeft >= this.props.cellsFixedX[num] - this.props.tableLeftBorder[num])) {
-  //     if (!this.state.fixFlag) {
-  //       this.setState({fixFlag: true});
-  //       if (this.props.onChangeBorder) {
-  //         this.props.onChangeBorder(this.props.tableLeftBorder[num] + width);
-  //       }
-  //     }
-  //   } else {
-  //     if (this.state.fixFlag) {
-  //       this.setState({fixFlag: false});
-  //       cellLeft = 0;
-  //     }
-  //   }
-  //
-  //   if (this.state.fixFlag) {
-  //     cellLeft = this.props.scrollLeft - this.props.cellsFixedX[num] + this.props.tableLeftBorder[num];
-  //   }
-  // }
 
   return <div className={className} style={{left: cellLeft, width: width}} ref={ref}>
     {children}
